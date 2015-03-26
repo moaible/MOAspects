@@ -37,7 +37,7 @@ pod "MOAspects", :git => 'https://github.com/MO-AI/MOAspects.git'
                             selector:@selector(numberWithInt:)
                          aspectsHook:MOAspectsHookBefore
                           usingBlock:^(id class, int intVar){
-                              NSLog(@"hooked %d number!", number);
+                              NSLog(@"hooked %d number!", intVar);
                           }];
                           
 [NSNumber numberWithInt:10]; // -> hooked 10 number!!
@@ -60,4 +60,4 @@ pod "MOAspects", :git => 'https://github.com/MO-AI/MOAspects.git'
 
 |**Version**|**32bit**|**64bit**|**Can Hook<br>Method Type**|**Class<br>Hierarchy Hook**|**Hook<br>Return Value**|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|0.0.1| ⚪︎ | ⚪︎ | Instance / Class | Supported | Not supported |
+|v0.0.1| ⚪︎ | ⚪︎ | Instance / Class | Supported | Not supported |
