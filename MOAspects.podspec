@@ -11,12 +11,12 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "6.0"
   s.osx.deployment_target = "10.8"
   s.requires_arc 	= true
-end
 
-s.subspec 'AspectsTarget' do |ss|
-    ss.source_files = 'MOAspects/MOAspects{Target,Store}.{h,m}'
-end
+  s.subspec 'AspectsTarget' do |ss|
+      ss.source_files = 'MOAspects/MOAspects{Target,Store}.{h,m}'
+  end
 
-s.subspec 'Runtime' do |ss|
-    ss.source_files = 'MOAspects/MOARuntime.{h,m}'
+  s.subspec 'Runtime' do |ss|
+      ss.source_files = 'MOAspects/MOARuntime.{h,m}'
+  end
 end
