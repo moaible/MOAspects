@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      	= 'MIT'
   s.author       	= { "Hiromi Motodera" => "moai.motodera@gmail.com" }
   s.source       	= { :git => "https://github.com/MO-AI/MOAspects.git", :tag => "#{s.version}", :submodules => true }
-  s.public_header_files = 'MOAspects/*.h'
+  s.public_header_files = 'MOAspects/MOAspects.{h,m}'
   s.source_files = 'MOAspects/MOAspects.h'
   s.ios.deployment_target = "6.0"
   s.osx.deployment_target = "10.8"
