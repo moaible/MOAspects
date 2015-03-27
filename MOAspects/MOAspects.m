@@ -17,10 +17,10 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 
 #pragma mark - Public
 
-+ (BOOL)hookInstanceMethodInClass:(Class)clazz
-                         selector:(SEL)selector
-                      aspectsHook:(MOAspectsHook)aspectsHook
-                       usingBlock:(id)block
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                        usingBlock:(id)block
 {
     NSAssert([MOARuntime hasInstanceMethodInClass:clazz selector:selector], @"");
     if (![MOARuntime hasInstanceMethodInClass:clazz selector:selector]) {
@@ -42,7 +42,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                 methodType:MOAspectsTargetMethodTypeInstance
                                                   selector:selector
                                            aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:rootClass aspectsHook:aspectsHook usingBlock:block];
+    [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
@@ -67,10 +67,10 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     return YES;
 }
 
-+ (BOOL)hookClassMethodInClass:(Class)clazz
-                      selector:(SEL)selector
-                   aspectsHook:(MOAspectsHook)aspectsHook
-                    usingBlock:(id)block
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                     usingBlock:(id)block
 {
     NSAssert([MOARuntime hasClassMethodInClass:clazz selector:selector], @"");
     if (![MOARuntime hasClassMethodInClass:clazz selector:selector]) {
@@ -92,7 +92,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                 methodType:MOAspectsTargetMethodTypeClass
                                                   selector:selector
                                            aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:rootClass aspectsHook:aspectsHook usingBlock:block];
+    [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
     
     __weak typeof(self) weakSelf = self;
     [MOARuntime overwritingClassMethodInClass:clazz
@@ -149,11 +149,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 
 + (void)addHookMethodWithTarget:(MOAspectsTarget *)target
                           class:(Class)clazz
-                    aspectsHook:(MOAspectsHook)aspectsHook
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
-    switch (aspectsHook) {
-        case MOAspectsHookBefore:
+    switch (aspectsPosition) {
+        case MOAspectsPositionBefore:
         {
             SEL beforeSelector = [self beforeSelectorWithTarget:target];
             [self addMethodInClass:target.class
@@ -163,7 +163,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
             [target addBeforeSelector:beforeSelector forClass:clazz];
         }
             break;
-        case MOAspectsHookAfter:
+        case MOAspectsPositionAfter:
         {
             SEL afterSelector = [self afterSelectorWithTarget:target];
             [self addMethodInClass:target.class
@@ -217,7 +217,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 }
 
 + (NSInvocation *)invocationWithBaseInvocation:(NSInvocation *)baseInvocation
-                                        targetObject:(id)object
+                                  targetObject:(id)object
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:baseInvocation.methodSignature];
     [invocation setArgument:(__bridge void *)(object) atIndex:0];
@@ -254,7 +254,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     invocation.selector = target.aspectsSelector;
     [invocation invoke];
-
+    
     for (NSValue *value in target.afterSelectors) {
         SEL selector = [value pointerValue];
         if ([object class] == [target classForSelector:selector]) {

@@ -119,9 +119,9 @@
     XCTAssertTrue([string isEqualToString:@"NO"]);
     
     __block NSString *hookedString;
-    [MOAspects hookClassMethodInClass:[MOAspectsTestObject class]
+    [MOAspects hookClassMethodForClass:[MOAspectsTestObject class]
                               selector:@selector(stringWithBOOL:)
-                           aspectsHook:MOAspectsHookBefore
+                       aspectsPosition:MOAspectsPositionBefore
                             usingBlock:^(id target, BOOL BOOLVar){
                                 hookedString = BOOLVar ? @"YES" : @"NO";
                             }];
@@ -144,9 +144,9 @@
     XCTAssertTrue([string isEqualToString:@"200"]);
     
     __block NSString *hookedString;
-    [MOAspects hookClassMethodInClass:[MOAspectsTestObject class]
+    [MOAspects hookClassMethodForClass:[MOAspectsTestObject class]
                               selector:@selector(stringWithInt:)
-                           aspectsHook:MOAspectsHookBefore
+                       aspectsPosition:MOAspectsPositionBefore
                             usingBlock:^(id target, int intVar){
                                 hookedString = @(intVar).stringValue;
                             }];
@@ -170,9 +170,9 @@
     XCTAssertTrue([string isEqualToString:@"{100, 200}"]);
     
     __block NSString *hookedString;
-    [MOAspects hookClassMethodInClass:[MOAspectsTestObject class]
+    [MOAspects hookClassMethodForClass:[MOAspectsTestObject class]
                               selector:@selector(stringWithPoint:)
-                           aspectsHook:MOAspectsHookBefore
+                       aspectsPosition:MOAspectsPositionBefore
                             usingBlock:^(id target, CGPoint pointVar){
                                 hookedString = NSStringFromCGPoint(pointVar);
                             }];
@@ -197,9 +197,9 @@
     XCTAssertTrue([string isEqualToString:@"NO"]);
     
     __block NSString *hookedString;
-    [MOAspects hookInstanceMethodInClass:[MOAspectsTestObject class]
+    [MOAspects hookInstanceMethodForClass:[MOAspectsTestObject class]
                                  selector:@selector(stringWithBOOL:)
-                              aspectsHook:MOAspectsHookBefore
+                          aspectsPosition:MOAspectsPositionBefore
                                usingBlock:^(id target, BOOL BOOLVar){
                                    hookedString = BOOLVar ? @"YES" : @"NO";
                                }];
@@ -224,9 +224,9 @@
     XCTAssertTrue([string isEqualToString:@"200"]);
     
     __block NSString *hookedString;
-    [MOAspects hookInstanceMethodInClass:[MOAspectsTestObject class]
+    [MOAspects hookInstanceMethodForClass:[MOAspectsTestObject class]
                                  selector:@selector(stringWithInt:)
-                              aspectsHook:MOAspectsHookBefore
+                          aspectsPosition:MOAspectsPositionBefore
                                usingBlock:^(id target, int intVar){
                                    hookedString = @(intVar).stringValue;
                                }];
@@ -252,9 +252,9 @@
     XCTAssertTrue([string isEqualToString:@"{100, 200}"]);
     
     __block NSString *hookedString;
-    [MOAspects hookInstanceMethodInClass:[MOAspectsTestObject class]
+    [MOAspects hookInstanceMethodForClass:[MOAspectsTestObject class]
                                  selector:@selector(stringWithPoint:)
-                              aspectsHook:MOAspectsHookBefore
+                          aspectsPosition:MOAspectsPositionBefore
                                usingBlock:^(id target, CGPoint pointVar){
                                    hookedString = NSStringFromCGPoint(pointVar);
                                }];
@@ -277,9 +277,9 @@
     XCTAssertTrue([string isEqualToString:@"偽"]);
     
     __block NSString *hookedString;
-    [MOAspects hookClassMethodInClass:[MOAspectsTestChildObject class]
+    [MOAspects hookClassMethodForClass:[MOAspectsTestChildObject class]
                               selector:@selector(stringWithBOOL:)
-                           aspectsHook:MOAspectsHookBefore
+                       aspectsPosition:MOAspectsPositionBefore
                             usingBlock:^(id target, BOOL BOOLVar){
                                 hookedString = BOOLVar ? @"真" : @"偽";
                             }];

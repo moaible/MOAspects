@@ -8,22 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, MOAspectsHook)
+typedef NS_ENUM(NSInteger, MOAspectsPosition)
 {
-    MOAspectsHookBefore,
-    MOAspectsHookAfter
+    MOAspectsPositionBefore,
+    MOAspectsPositionAfter
 };
 
 @interface MOAspects : NSObject
 
-+ (BOOL)hookInstanceMethodInClass:(Class)clazz
-                         selector:(SEL)selector
-                      aspectsHook:(MOAspectsHook)aspectsHook
-                       usingBlock:(id)block;
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                        usingBlock:(id)block;
 
-+ (BOOL)hookClassMethodInClass:(Class)clazz
-                      selector:(SEL)selector
-                   aspectsHook:(MOAspectsHook)aspectsHook
-                    usingBlock:(id)block;
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                     usingBlock:(id)block;
 
 @end
