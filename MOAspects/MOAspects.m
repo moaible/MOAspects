@@ -22,8 +22,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block
 {
-    NSAssert([MOARuntime hasInstanceMethodInClass:clazz selector:selector], @"");
-    if (![MOARuntime hasInstanceMethodInClass:clazz selector:selector]) {
+    NSAssert([MOARuntime hasInstanceMethodForClass:clazz selector:selector], @"");
+    if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
         return NO;
     }
     
@@ -33,9 +33,9 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![MOARuntime hasInstanceMethodInClass:rootClass selector:aspectsSelector]) {
-        [MOARuntime copyInstanceMethodInClass:rootClass atSelector:selector toSelector:aspectsSelector];
-        [MOARuntime overwritingMessageForwardInstanceMethodInClass:rootClass selector:selector];
+    if (![MOARuntime hasInstanceMethodForClass:rootClass selector:aspectsSelector]) {
+        [MOARuntime copyInstanceMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector];
+        [MOARuntime overwritingMessageForwardInstanceMethodForClass:rootClass selector:selector];
     }
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
@@ -46,23 +46,26 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
-    if (![MOARuntime hasInstanceMethodInClass:rootClass selector:aspectsForwardInovcationSelector]) {
-        [MOARuntime copyInstanceMethodInClass:rootClass
-                                   atSelector:@selector(forwardInvocation:)
-                                   toSelector:aspectsForwardInovcationSelector];
+    if (![MOARuntime hasInstanceMethodForClass:rootClass selector:aspectsForwardInovcationSelector]) {
+        [MOARuntime copyInstanceMethodForClass:rootClass
+                                    atSelector:@selector(forwardInvocation:)
+                                    toSelector:aspectsForwardInovcationSelector];
     }
     
     __weak typeof(self) weakSelf = self;
-    [MOARuntime overwritingInstanceMethodInClass:clazz
-                                        selector:@selector(forwardInvocation:)
-                             implementationBlock:^(id object, NSInvocation *invocation) {
-                                 Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:[object class] selector:invocation.selector];
-                                 MOAspectsTarget *target = [weakSelf targetInStoreWithClass:rootClass
-                                                                                 methodType:MOAspectsTargetMethodTypeInstance
-                                                                                   selector:invocation.selector
-                                                                            aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector        prefix:MOAspectsPrefix]];
-                                 [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
-                             }];
+    [MOARuntime overwritingInstanceMethodForClass:clazz
+                                         selector:@selector(forwardInvocation:)
+                              implementationBlock:^(id object, NSInvocation *invocation) {
+                                  Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:[object class] selector:invocation.selector];
+                                  NSString *key = [MOAspectsStore keyWithClass:rootClass
+                                                                    methodType:MOAspectsTargetMethodTypeInstance
+                                                                      selector:invocation.selector
+                                                               aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector prefix:MOAspectsPrefix]];
+                                  MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
+                                  if (target) {
+                                      [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                                  }
+                              }];
     
     return YES;
 }
@@ -72,8 +75,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
-    NSAssert([MOARuntime hasClassMethodInClass:clazz selector:selector], @"");
-    if (![MOARuntime hasClassMethodInClass:clazz selector:selector]) {
+    NSAssert([MOARuntime hasClassMethodForClass:clazz selector:selector], @"");
+    if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
         return NO;
     }
     
@@ -83,9 +86,9 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     Class rootClass = [MOARuntime rootClassForClassRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![MOARuntime hasClassMethodInClass:clazz selector:aspectsSelector]) {
-        [MOARuntime copyClassMethodInClass:clazz atSelector:selector toSelector:aspectsSelector];
-        [MOARuntime overwritingMessageForwardClassMethodInClass:clazz selector:selector];
+    if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsSelector]) {
+        [MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector];
+        [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
     }
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
@@ -95,16 +98,16 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
     
     __weak typeof(self) weakSelf = self;
-    [MOARuntime overwritingClassMethodInClass:clazz
-                                     selector:@selector(forwardInvocation:)
-                          implementationBlock:^(id object, NSInvocation *invocation) {
-                              Class rootClass = [MOARuntime rootClassForClassRespondsToClass:[object class] selector:invocation.selector];
-                              MOAspectsTarget *target = [weakSelf targetInStoreWithClass:rootClass
-                                                                              methodType:MOAspectsTargetMethodTypeClass
-                                                                                selector:invocation.selector
-                                                                         aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector        prefix:MOAspectsPrefix]];
-                              [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
-                          }];
+    [MOARuntime overwritingClassMethodForClass:clazz
+                                      selector:@selector(forwardInvocation:)
+                           implementationBlock:^(id object, NSInvocation *invocation) {
+                               Class rootClass = [MOARuntime rootClassForClassRespondsToClass:[object class] selector:invocation.selector];
+                               MOAspectsTarget *target = [weakSelf targetInStoreWithClass:rootClass
+                                                                               methodType:MOAspectsTargetMethodTypeClass
+                                                                                 selector:invocation.selector
+                                                                          aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector        prefix:MOAspectsPrefix]];
+                               [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                           }];
     
     return YES;
 }
@@ -156,20 +159,20 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         case MOAspectsPositionBefore:
         {
             SEL beforeSelector = [self beforeSelectorWithTarget:target];
-            [self addMethodInClass:target.class
-                        methodType:target.methodType
-                          selector:beforeSelector
-                             block:block];
+            [self addMethodForClass:target.class
+                         methodType:target.methodType
+                           selector:beforeSelector
+                              block:block];
             [target addBeforeSelector:beforeSelector forClass:clazz];
         }
             break;
         case MOAspectsPositionAfter:
         {
             SEL afterSelector = [self afterSelectorWithTarget:target];
-            [self addMethodInClass:target.class
-                        methodType:target.methodType
-                          selector:afterSelector
-                             block:block];
+            [self addMethodForClass:target.class
+                         methodType:target.methodType
+                           selector:afterSelector
+                              block:block];
             [target addAfterSelector:afterSelector forClass:clazz];
         }
             break;
@@ -200,19 +203,19 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     }
 }
 
-+ (BOOL)addMethodInClass:(Class)clazz
-              methodType:(MOAspectsTargetMethodType)methodType
-                selector:(SEL)selector
-                   block:(id)block
++ (BOOL)addMethodForClass:(Class)clazz
+               methodType:(MOAspectsTargetMethodType)methodType
+                 selector:(SEL)selector
+                    block:(id)block
 {
     if (methodType == MOAspectsTargetMethodTypeClass) {
-        return [MOARuntime addClassMethodInClass:clazz
-                                        selector:selector
-                             implementationBlock:block];
+        return [MOARuntime addClassMethodForClass:clazz
+                                         selector:selector
+                              implementationBlock:block];
     } else {
-        return [MOARuntime addInstanceMethodInClass:clazz
-                                           selector:selector
-                                implementationBlock:block];
+        return [MOARuntime addInstanceMethodForClass:clazz
+                                            selector:selector
+                                 implementationBlock:block];
     }
 }
 

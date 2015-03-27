@@ -32,13 +32,13 @@
 
 + (BOOL)hasPropertyName:(NSString *)name atClass:(Class)clazz;
 
-+ (BOOL)hasInstanceMethodInClass:(Class)clazz selector:(SEL)selector;
++ (BOOL)hasInstanceMethodForClass:(Class)clazz selector:(SEL)selector;
+
++ (BOOL)hasClassMethodForClass:(Class)clazz selector:(SEL)selector;
 
 + (Class)rootClassForInstanceRespondsToClass:(Class)clazz selector:(SEL)selector;
 
 + (Class)rootClassForClassRespondsToClass:(Class)clazz selector:(SEL)selector;
-
-+ (BOOL)hasClassMethodInClass:(Class)clazz selector:(SEL)selector;
 
 + (SEL)selectorWithSelector:(SEL)selector prefix:(NSString *)prefix;
 
@@ -56,34 +56,34 @@
                  fromClassMethodSelector:(SEL)fromSEL
                    toClassMethodSelector:(SEL)toSEL;
 
-+ (void)overwritingClassMethodInClass:(Class)clazz
-                             selector:(SEL)selector
-                  implementationBlock:(id)implementationBlock;
++ (void)overwritingClassMethodForClass:(Class)clazz
+                              selector:(SEL)selector
+                   implementationBlock:(id)implementationBlock;
 
-+ (void)overwritingInstanceMethodInClass:(Class)clazz
-                                selector:(SEL)selector
-                     implementationBlock:(id)implementationBlock;
++ (void)overwritingInstanceMethodForClass:(Class)clazz
+                                 selector:(SEL)selector
+                      implementationBlock:(id)implementationBlock;
 
-+ (void)overwritingMessageForwardInstanceMethodInClass:(Class)clazz
-                                              selector:(SEL)selector;
++ (void)overwritingMessageForwardInstanceMethodForClass:(Class)clazz
+                                               selector:(SEL)selector;
 
-+ (void)overwritingMessageForwardClassMethodInClass:(Class)clazz
-                                           selector:(SEL)selector;
++ (void)overwritingMessageForwardClassMethodForClass:(Class)clazz
+                                            selector:(SEL)selector;
 
-+ (BOOL)addInstanceMethodInClass:(Class)clazz
-                        selector:(SEL)selector
-             implementationBlock:(id)implementationBlock;
++ (BOOL)addInstanceMethodForClass:(Class)clazz
+                         selector:(SEL)selector
+              implementationBlock:(id)implementationBlock;
 
-+ (BOOL)addClassMethodInClass:(Class)clazz
-                     selector:(SEL)selector
-          implementationBlock:(id)implementationBlock;
++ (BOOL)addClassMethodForClass:(Class)clazz
+                      selector:(SEL)selector
+           implementationBlock:(id)implementationBlock;
 
-+ (BOOL)copyInstanceMethodInClass:(Class)clazz
-                       atSelector:(SEL)selector
-                       toSelector:(SEL)copySelector;
++ (BOOL)copyInstanceMethodForClass:(Class)clazz
+                        atSelector:(SEL)selector
+                        toSelector:(SEL)copySelector;
 
-+ (BOOL)copyClassMethodInClass:(Class)clazz
-                    atSelector:(SEL)selector
-                    toSelector:(SEL)copySelector;
++ (BOOL)copyClassMethodForClass:(Class)clazz
+                     atSelector:(SEL)selector
+                     toSelector:(SEL)copySelector;
 
 @end

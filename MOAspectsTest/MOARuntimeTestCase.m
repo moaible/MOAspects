@@ -249,42 +249,42 @@
     XCTAssertTrue([MOARuntime selector:nil isEqualToSelector:nil]);
 }
 
-- (void)testHasInstanceMethodInClassAndSelector
+- (void)testhasInstanceMethodForClassAndSelector
 {
-    XCTAssertTrue([MOARuntime hasInstanceMethodInClass:[MOARuntimeTestObject class]
-                                              selector:@selector(oneValue)]);
-    XCTAssertFalse([MOARuntime hasInstanceMethodInClass:[MOARuntimeTestObject class]
-                                               selector:NSSelectorFromString(@"threeValue")]);
-    XCTAssertTrue([MOARuntime hasInstanceMethodInClass:[MOARuntimeTestObject2 class]
-                                              selector:@selector(oneValue)]);
+    XCTAssertTrue([MOARuntime hasInstanceMethodForClass:[MOARuntimeTestObject class]
+                                               selector:@selector(oneValue)]);
+    XCTAssertFalse([MOARuntime hasInstanceMethodForClass:[MOARuntimeTestObject class]
+                                                selector:NSSelectorFromString(@"threeValue")]);
+    XCTAssertTrue([MOARuntime hasInstanceMethodForClass:[MOARuntimeTestObject2 class]
+                                               selector:@selector(oneValue)]);
 }
 
-- (void)testHasClassMethodInClassAndSelector
+- (void)testhasClassMethodForClassAndSelector
 {
-    XCTAssertTrue([MOARuntime hasClassMethodInClass:[MOARuntimeTestObject class]
-                                           selector:@selector(oneValue)]);
-    XCTAssertFalse([MOARuntime hasClassMethodInClass:[MOARuntimeTestObject class]
-                                            selector:NSSelectorFromString(@"threeValue")]);
-    XCTAssertTrue([MOARuntime hasClassMethodInClass:[MOARuntimeTestObject2 class]
-                                           selector:@selector(oneValue)]);
+    XCTAssertTrue([MOARuntime hasClassMethodForClass:[MOARuntimeTestObject class]
+                                            selector:@selector(oneValue)]);
+    XCTAssertFalse([MOARuntime hasClassMethodForClass:[MOARuntimeTestObject class]
+                                             selector:NSSelectorFromString(@"threeValue")]);
+    XCTAssertTrue([MOARuntime hasClassMethodForClass:[MOARuntimeTestObject2 class]
+                                            selector:@selector(oneValue)]);
 }
 
 - (void)testOverwritingClassMethod
 {
     XCTAssertTrue([MOARuntimeTestObject oneValue] == 1);
     XCTAssertTrue([[[MOARuntimeTestObject alloc] init] oneValue] == 1);
-    [MOARuntime overwritingClassMethodInClass:[MOARuntimeTestObject class]
-                                     selector:@selector(oneValue)
-                          implementationBlock:^{
-                              return 3;
-                          }];
+    [MOARuntime overwritingClassMethodForClass:[MOARuntimeTestObject class]
+                                      selector:@selector(oneValue)
+                           implementationBlock:^{
+                               return 3;
+                           }];
     XCTAssertTrue([MOARuntimeTestObject oneValue] == 3);
     XCTAssertFalse([[[MOARuntimeTestObject alloc] init] oneValue] == 3);
-    [MOARuntime overwritingClassMethodInClass:[MOARuntimeTestObject class]
-                                     selector:@selector(oneValue)
-                          implementationBlock:^{
-                              return 1;
-                          }];
+    [MOARuntime overwritingClassMethodForClass:[MOARuntimeTestObject class]
+                                      selector:@selector(oneValue)
+                           implementationBlock:^{
+                               return 1;
+                           }];
     XCTAssertTrue([MOARuntimeTestObject oneValue] == 1);
     XCTAssertTrue([[[MOARuntimeTestObject alloc] init] oneValue] == 1);
 }
@@ -293,18 +293,18 @@
 {
     XCTAssertTrue([[[MOARuntimeTestObject alloc] init] twoValue] == 2);
     XCTAssertTrue([MOARuntimeTestObject twoValue] == 2);
-    [MOARuntime overwritingInstanceMethodInClass:[MOARuntimeTestObject class]
-                                        selector:@selector(twoValue)
-                             implementationBlock:^{
-                                 return 4;
-                             }];
+    [MOARuntime overwritingInstanceMethodForClass:[MOARuntimeTestObject class]
+                                         selector:@selector(twoValue)
+                              implementationBlock:^{
+                                  return 4;
+                              }];
     XCTAssertTrue([[[MOARuntimeTestObject alloc] init] twoValue] == 4);
     XCTAssertFalse([MOARuntimeTestObject twoValue] == 4);
-    [MOARuntime overwritingInstanceMethodInClass:[MOARuntimeTestObject class]
-                                        selector:@selector(twoValue)
-                             implementationBlock:^{
-                                 return 2;
-                             }];
+    [MOARuntime overwritingInstanceMethodForClass:[MOARuntimeTestObject class]
+                                         selector:@selector(twoValue)
+                              implementationBlock:^{
+                                  return 2;
+                              }];
     XCTAssertTrue([[[MOARuntimeTestObject alloc] init] twoValue] == 2);
     XCTAssertTrue([MOARuntimeTestObject twoValue] == 2);
 }
@@ -312,8 +312,8 @@
 - (void)testOverwritingMsgForwardClassMethod
 {
     [MOARuntimeTestObject forwardTargetMethod];
-    [MOARuntime overwritingMessageForwardClassMethodInClass:[MOARuntimeTestObject class]
-                                                   selector:@selector(forwardTargetMethod)];
+    [MOARuntime overwritingMessageForwardClassMethodForClass:[MOARuntimeTestObject class]
+                                                    selector:@selector(forwardTargetMethod)];
     XCTAssertThrows([MOARuntimeTestObject forwardTargetMethod]);
 }
 
@@ -321,22 +321,22 @@
 {
     MOARuntimeTestObject *object = [[MOARuntimeTestObject alloc] init];
     [object forwardTargetMethod];
-    [MOARuntime overwritingMessageForwardInstanceMethodInClass:[MOARuntimeTestObject class]
-                                                      selector:@selector(forwardTargetMethod)];
+    [MOARuntime overwritingMessageForwardInstanceMethodForClass:[MOARuntimeTestObject class]
+                                                       selector:@selector(forwardTargetMethod)];
     XCTAssertThrows([object forwardTargetMethod]);
 }
 
 - (void)testAddInstanceMethod
 {
     SEL addedMethodSelector = NSSelectorFromString(@"moa_test_method_string");
-    [MOARuntime addInstanceMethodInClass:[MOARuntimeTestObject class]
-                                selector:addedMethodSelector
-                     implementationBlock:^{
-                         return @"abc";
-                     }];
+    [MOARuntime addInstanceMethodForClass:[MOARuntimeTestObject class]
+                                 selector:addedMethodSelector
+                      implementationBlock:^{
+                          return @"abc";
+                      }];
     
-    XCTAssertTrue([MOARuntime hasInstanceMethodInClass:[MOARuntimeTestObject class]
-                                              selector:addedMethodSelector]);
+    XCTAssertTrue([MOARuntime hasInstanceMethodForClass:[MOARuntimeTestObject class]
+                                               selector:addedMethodSelector]);
     
     MOARuntimeTestObject *object = [[MOARuntimeTestObject alloc] init];
 #pragma clang diagnostic push
@@ -349,14 +349,14 @@
 - (void)testAddClassMethod
 {
     SEL addedMethodSelector = NSSelectorFromString(@"moa_test_method_string");
-    [MOARuntime addClassMethodInClass:[MOARuntimeTestObject class]
-                             selector:addedMethodSelector
-                  implementationBlock:^{
-                      return @"abc";
-                  }];
+    [MOARuntime addClassMethodForClass:[MOARuntimeTestObject class]
+                              selector:addedMethodSelector
+                   implementationBlock:^{
+                       return @"abc";
+                   }];
     
-    XCTAssertTrue([MOARuntime hasClassMethodInClass:[MOARuntimeTestObject class]
-                                           selector:addedMethodSelector]);
+    XCTAssertTrue([MOARuntime hasClassMethodForClass:[MOARuntimeTestObject class]
+                                            selector:addedMethodSelector]);
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -368,21 +368,21 @@
 - (void)testCopyInstanceMethod
 {
     SEL copySelector = NSSelectorFromString(@"cp_oneValue");
-    BOOL ret = [MOARuntime copyInstanceMethodInClass:[MOARuntimeTestObject class]
-                                          atSelector:@selector(oneValue)
-                                          toSelector:copySelector];
+    BOOL ret = [MOARuntime copyInstanceMethodForClass:[MOARuntimeTestObject class]
+                                           atSelector:@selector(oneValue)
+                                           toSelector:copySelector];
     XCTAssertTrue(ret);
-    XCTAssertTrue([MOARuntime hasInstanceMethodInClass:[MOARuntimeTestObject class] selector:copySelector]);
+    XCTAssertTrue([MOARuntime hasInstanceMethodForClass:[MOARuntimeTestObject class] selector:copySelector]);
 }
 
 - (void)testCopyClassMethod
 {
     SEL copySelector = NSSelectorFromString(@"cp_oneValue");
-    BOOL ret = [MOARuntime copyClassMethodInClass:[MOARuntimeTestObject class]
-                                       atSelector:@selector(oneValue)
-                                       toSelector:copySelector];
+    BOOL ret = [MOARuntime copyClassMethodForClass:[MOARuntimeTestObject class]
+                                        atSelector:@selector(oneValue)
+                                        toSelector:copySelector];
     XCTAssertTrue(ret);
-    XCTAssertTrue([MOARuntime hasClassMethodInClass:[MOARuntimeTestObject class] selector:copySelector]);
+    XCTAssertTrue([MOARuntime hasClassMethodForClass:[MOARuntimeTestObject class] selector:copySelector]);
 }
 
 @end

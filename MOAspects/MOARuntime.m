@@ -154,8 +154,8 @@ typedef struct _MOABlock {
     MOABlockRef blockRef = (__bridge void *)block;
     if (!(blockRef->flags & MOABlockFlagsHasSignature)) {
         // TODO: エラー処理のハンドリング
-//        NSString *description = [NSString stringWithFormat:@"The block %@ doesn't contain a type signature.", block];
-//        AspectError(AspectErrorMissingBlockSignature, description);
+        //        NSString *description = [NSString stringWithFormat:@"The block %@ doesn't contain a type signature.", block];
+        //        AspectError(AspectErrorMissingBlockSignature, description);
         return nil;
     }
     void *descriptor = blockRef->descriptor;
@@ -165,8 +165,8 @@ typedef struct _MOABlock {
     }
     if (!descriptor) {
         // TODO: エラー処理のハンドリング
-//        NSString *description = [NSString stringWithFormat:@"The block %@ doesn't has a type signature.", block];
-//        AspectError(AspectErrorMissingBlockSignature, description);
+        //        NSString *description = [NSString stringWithFormat:@"The block %@ doesn't has a type signature.", block];
+        //        AspectError(AspectErrorMissingBlockSignature, description);
         return nil;
     }
     return (*(const char **)descriptor);
@@ -198,18 +198,18 @@ typedef struct _MOABlock {
     return [NSMethodSignature signatureWithObjCTypes:method_getTypeEncoding(class_getInstanceMethod(clazz, selector))];
 }
 
-+ (BOOL)hasInstanceMethodInClass:(Class)clazz selector:(SEL)selector
++ (BOOL)hasInstanceMethodForClass:(Class)clazz selector:(SEL)selector
 {
     return class_getInstanceMethod(clazz, selector) != nil;
 }
 
 + (Class)rootClassForInstanceRespondsToClass:(Class)clazz selector:(SEL)selector
 {
-    if (![MOARuntime hasInstanceMethodInClass:clazz
-                                     selector:selector]) {
+    if (![MOARuntime hasInstanceMethodForClass:clazz
+                                      selector:selector]) {
         return nil;
-    } else if ([MOARuntime hasInstanceMethodInClass:class_getSuperclass(clazz)
-                                           selector:selector]) {
+    } else if ([MOARuntime hasInstanceMethodForClass:class_getSuperclass(clazz)
+                                            selector:selector]) {
         return [self rootClassForInstanceRespondsToClass:class_getSuperclass(clazz)
                                                 selector:selector];
     }
@@ -219,11 +219,11 @@ typedef struct _MOABlock {
 
 + (Class)rootClassForClassRespondsToClass:(Class)clazz selector:(SEL)selector
 {
-    if (![MOARuntime hasClassMethodInClass:clazz
-                                  selector:selector]) {
+    if (![MOARuntime hasClassMethodForClass:clazz
+                                   selector:selector]) {
         return nil;
-    } else if ([MOARuntime hasClassMethodInClass:class_getSuperclass(clazz)
-                                        selector:selector]) {
+    } else if ([MOARuntime hasClassMethodForClass:class_getSuperclass(clazz)
+                                         selector:selector]) {
         return [self rootClassForClassRespondsToClass:class_getSuperclass(clazz)
                                              selector:selector];
     }
@@ -231,14 +231,14 @@ typedef struct _MOABlock {
     return clazz;
 }
 
-+ (BOOL)hasClassMethodInClass:(Class)clazz selector:(SEL)selector
++ (BOOL)hasClassMethodForClass:(Class)clazz selector:(SEL)selector
 {
     return class_getClassMethod(clazz, selector) != nil;
 }
 
-+ (void)overwritingClassMethodInClass:(Class)clazz
-                             selector:(SEL)selector
-                  implementationBlock:(id)implementationBlock
++ (void)overwritingClassMethodForClass:(Class)clazz
+                              selector:(SEL)selector
+                   implementationBlock:(id)implementationBlock
 {
     NSAssert([clazz respondsToSelector:selector],
              @"not responds to selector is %@", NSStringFromSelector(selector));
@@ -247,9 +247,9 @@ typedef struct _MOABlock {
     method_setImplementation(classMethod, blockIMP);
 }
 
-+ (void)overwritingInstanceMethodInClass:(Class)clazz
-                                selector:(SEL)selector
-                     implementationBlock:(id)implementationBlock
++ (void)overwritingInstanceMethodForClass:(Class)clazz
+                                 selector:(SEL)selector
+                      implementationBlock:(id)implementationBlock
 {
     NSAssert([clazz instancesRespondToSelector:selector],
              @"not responds to selector is %@", NSStringFromSelector(selector));
@@ -258,23 +258,23 @@ typedef struct _MOABlock {
     method_setImplementation(instanceMethod, blockIMP);
 }
 
-+ (void)overwritingMessageForwardInstanceMethodInClass:(Class)clazz selector:(SEL)selector
++ (void)overwritingMessageForwardInstanceMethodForClass:(Class)clazz selector:(SEL)selector
 {
     Method instanceMethod = class_getInstanceMethod(clazz, selector);
     method_setImplementation(instanceMethod, [self msgForwardIMPWithMethod:instanceMethod]);
 }
 
-+ (void)overwritingMessageForwardClassMethodInClass:(Class)clazz selector:(SEL)selector
++ (void)overwritingMessageForwardClassMethodForClass:(Class)clazz selector:(SEL)selector
 {
     Method classMethod = class_getClassMethod(clazz, selector);
     method_setImplementation(classMethod, [self msgForwardIMPWithMethod:classMethod]);
 }
 
-+ (BOOL)addInstanceMethodInClass:(Class)clazz
-                        selector:(SEL)selector
-             implementationBlock:(id)implementationBlock
++ (BOOL)addInstanceMethodForClass:(Class)clazz
+                         selector:(SEL)selector
+              implementationBlock:(id)implementationBlock
 {
-    if ([self hasInstanceMethodInClass:clazz selector:selector]) {
+    if ([self hasInstanceMethodForClass:clazz selector:selector]) {
         return NO;
     }
     
@@ -284,11 +284,11 @@ typedef struct _MOABlock {
                            [self objcTypeEncodingWithBlock:implementationBlock]);
 }
 
-+ (BOOL)addClassMethodInClass:(Class)clazz
-                     selector:(SEL)selector
-          implementationBlock:(id)implementationBlock
++ (BOOL)addClassMethodForClass:(Class)clazz
+                      selector:(SEL)selector
+           implementationBlock:(id)implementationBlock
 {
-    if ([self hasClassMethodInClass:clazz selector:selector]) {
+    if ([self hasClassMethodForClass:clazz selector:selector]) {
         return NO;
     }
     
@@ -298,9 +298,9 @@ typedef struct _MOABlock {
                            [self objcTypeEncodingWithBlock:implementationBlock]);;
 }
 
-+ (BOOL)copyInstanceMethodInClass:(Class)clazz
-                       atSelector:(SEL)selector
-                       toSelector:(SEL)copySelector
++ (BOOL)copyInstanceMethodForClass:(Class)clazz
+                        atSelector:(SEL)selector
+                        toSelector:(SEL)copySelector
 {
     return class_addMethod(clazz,
                            copySelector,
@@ -308,9 +308,9 @@ typedef struct _MOABlock {
                            method_getTypeEncoding(class_getInstanceMethod(clazz, selector)));
 }
 
-+ (BOOL)copyClassMethodInClass:(Class)clazz
-                    atSelector:(SEL)selector
-                    toSelector:(SEL)copySelector
++ (BOOL)copyClassMethodForClass:(Class)clazz
+                     atSelector:(SEL)selector
+                     toSelector:(SEL)copySelector
 {
     return class_addMethod([self metaClassWithClass:clazz],
                            copySelector,
@@ -323,7 +323,7 @@ typedef struct _MOABlock {
 + (IMP)msgForwardIMPWithMethod:(Method)method
 {
     IMP msgForwardIMP = _objc_msgForward;
- #if !defined(__arm64__)
+#if !defined(__arm64__)
     const char *encoding = method_getTypeEncoding(method);
     BOOL methodReturnsStructValue = encoding[0] == _C_STRUCT_B;
     if (methodReturnsStructValue) {
