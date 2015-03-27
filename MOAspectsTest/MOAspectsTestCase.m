@@ -1,6 +1,6 @@
 //
 //  MOAspectsTestCase.m
-//  Sandbox
+//  MOAspects
 //
 //  Created by Hiromi Motodera on 2015/03/23.
 //  Copyright (c) 2015年 MOAI. All rights reserved.
