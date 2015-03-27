@@ -13,6 +13,10 @@
 		C946E3721AC5A60F00551F93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C946E3711AC5A60F00551F93 /* Images.xcassets */; };
 		C946E3751AC5A60F00551F93 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C946E3731AC5A60F00551F93 /* LaunchScreen.xib */; };
 		C946E3811AC5A60F00551F93 /* MOAspectsDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3801AC5A60F00551F93 /* MOAspectsDemoTests.m */; };
+		C946E3931AC5B58700551F93 /* MOARuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E38C1AC5B58700551F93 /* MOARuntime.m */; };
+		C946E3941AC5B58700551F93 /* MOAspects.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E38E1AC5B58700551F93 /* MOAspects.m */; };
+		C946E3951AC5B58700551F93 /* MOAspectsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3901AC5B58700551F93 /* MOAspectsStore.m */; };
+		C946E3961AC5B58700551F93 /* MOAspectsTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3921AC5B58700551F93 /* MOAspectsTarget.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,14 @@
 		C946E37A1AC5A60F00551F93 /* MOAspectsDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MOAspectsDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C946E37F1AC5A60F00551F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C946E3801AC5A60F00551F93 /* MOAspectsDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOAspectsDemoTests.m; sourceTree = "<group>"; };
+		C946E38B1AC5B58700551F93 /* MOARuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOARuntime.h; sourceTree = "<group>"; };
+		C946E38C1AC5B58700551F93 /* MOARuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOARuntime.m; sourceTree = "<group>"; };
+		C946E38D1AC5B58700551F93 /* MOAspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspects.h; sourceTree = "<group>"; };
+		C946E38E1AC5B58700551F93 /* MOAspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspects.m; sourceTree = "<group>"; };
+		C946E38F1AC5B58700551F93 /* MOAspectsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsStore.h; sourceTree = "<group>"; };
+		C946E3901AC5B58700551F93 /* MOAspectsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsStore.m; sourceTree = "<group>"; };
+		C946E3911AC5B58700551F93 /* MOAspectsTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsTarget.h; sourceTree = "<group>"; };
+		C946E3921AC5B58700551F93 /* MOAspectsTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsTarget.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +73,7 @@
 		C946E3581AC5A60F00551F93 = {
 			isa = PBXGroup;
 			children = (
+				C946E38A1AC5B58700551F93 /* MOAspects */,
 				C946E3631AC5A60F00551F93 /* MOAspectsDemo */,
 				C946E37D1AC5A60F00551F93 /* MOAspectsDemoTests */,
 				C946E3621AC5A60F00551F93 /* Products */,
@@ -114,6 +127,22 @@
 				C946E37F1AC5A60F00551F93 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C946E38A1AC5B58700551F93 /* MOAspects */ = {
+			isa = PBXGroup;
+			children = (
+				C946E38B1AC5B58700551F93 /* MOARuntime.h */,
+				C946E38C1AC5B58700551F93 /* MOARuntime.m */,
+				C946E38D1AC5B58700551F93 /* MOAspects.h */,
+				C946E38E1AC5B58700551F93 /* MOAspects.m */,
+				C946E38F1AC5B58700551F93 /* MOAspectsStore.h */,
+				C946E3901AC5B58700551F93 /* MOAspectsStore.m */,
+				C946E3911AC5B58700551F93 /* MOAspectsTarget.h */,
+				C946E3921AC5B58700551F93 /* MOAspectsTarget.m */,
+			);
+			name = MOAspects;
+			path = ../MOAspects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +244,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C946E3931AC5B58700551F93 /* MOARuntime.m in Sources */,
 				C946E36D1AC5A60F00551F93 /* MOAspectsViewController.m in Sources */,
+				C946E3941AC5B58700551F93 /* MOAspects.m in Sources */,
 				C946E36A1AC5A60F00551F93 /* MOAspectsAppDelegate.m in Sources */,
 				C946E3671AC5A60F00551F93 /* main.m in Sources */,
+				C946E3961AC5B58700551F93 /* MOAspectsTarget.m in Sources */,
+				C946E3951AC5B58700551F93 /* MOAspectsStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
