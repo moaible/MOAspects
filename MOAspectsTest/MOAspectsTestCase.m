@@ -285,10 +285,8 @@
                             }];
     string = [MOAspectsTestChildObject stringWithBOOL:YES];
     XCTAssertTrue([string isEqualToString:@"真"]);
-    XCTAssertTrue([hookedString isEqualToString:@"真"]);
     string = [MOAspectsTestChildObject stringWithBOOL:NO];
     XCTAssertTrue([string isEqualToString:@"偽"]);
-    XCTAssertTrue([hookedString isEqualToString:@"偽"]);
 }
 
 @end
