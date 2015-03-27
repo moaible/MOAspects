@@ -63,6 +63,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                   MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
                                   if (target) {
                                       [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                                  } else {
+                                      SEL aspectsForwardInovcationSelector = [MOARuntime
+                                                                              selectorWithSelector:@selector(forwardInvocation:)
+                                                                              prefix:MOAspectsPrefix];
+                                      [invocation setSelector:aspectsForwardInovcationSelector];
+                                      [invocation invoke];
                                   }
                               }];
     
@@ -115,6 +121,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
                                if (target) {
                                    [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                               } else {
+                                   SEL aspectsForwardInovcationSelector = [MOARuntime
+                                                                           selectorWithSelector:@selector(forwardInvocation:)
+                                                                           prefix:MOAspectsPrefix];
+                                   [invocation setSelector:aspectsForwardInovcationSelector];
+                                   [invocation invoke];
                                }
                            }];
     
