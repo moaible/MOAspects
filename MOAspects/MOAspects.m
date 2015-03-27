@@ -102,11 +102,14 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                       selector:@selector(forwardInvocation:)
                            implementationBlock:^(id object, NSInvocation *invocation) {
                                Class rootClass = [MOARuntime rootClassForClassRespondsToClass:[object class] selector:invocation.selector];
-                               MOAspectsTarget *target = [weakSelf targetInStoreWithClass:rootClass
-                                                                               methodType:MOAspectsTargetMethodTypeClass
-                                                                                 selector:invocation.selector
-                                                                          aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector        prefix:MOAspectsPrefix]];
-                               [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                               NSString *key = [MOAspectsStore keyWithClass:rootClass
+                                                                 methodType:MOAspectsTargetMethodTypeClass
+                                                                   selector:invocation.selector
+                                                            aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector prefix:MOAspectsPrefix]];
+                               MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
+                               if (target) {
+                                   [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                               }
                            }];
     
     return YES;
