@@ -103,7 +103,7 @@ typedef struct _MOABlock {
 {
     unsigned int propertyCount;
     objc_property_t *properties = class_copyPropertyList(clazz, &propertyCount);
-    NSMutableArray *propertyNames = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *propertyNames = [@[] mutableCopy];
     for(NSUInteger i = 0; i < propertyCount; i++) {
         objc_property_t property = properties[i];
         const char *propName = property_getName(property);
