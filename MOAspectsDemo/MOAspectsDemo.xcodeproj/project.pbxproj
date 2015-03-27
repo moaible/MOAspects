@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C946E3671AC5A60F00551F93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3661AC5A60F00551F93 /* main.m */; };
-		C946E36A1AC5A60F00551F93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3691AC5A60F00551F93 /* AppDelegate.m */; };
+		C946E36A1AC5A60F00551F93 /* MOAspectsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3691AC5A60F00551F93 /* MOAspectsAppDelegate.m */; };
 		C946E36D1AC5A60F00551F93 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E36C1AC5A60F00551F93 /* ViewController.m */; };
 		C946E3721AC5A60F00551F93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C946E3711AC5A60F00551F93 /* Images.xcassets */; };
 		C946E3751AC5A60F00551F93 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C946E3731AC5A60F00551F93 /* LaunchScreen.xib */; };
@@ -29,8 +29,8 @@
 		C946E3611AC5A60F00551F93 /* MOAspectsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOAspectsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C946E3651AC5A60F00551F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C946E3661AC5A60F00551F93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C946E3681AC5A60F00551F93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C946E3691AC5A60F00551F93 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C946E3681AC5A60F00551F93 /* MOAspectsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOAspectsAppDelegate.h; sourceTree = "<group>"; };
+		C946E3691AC5A60F00551F93 /* MOAspectsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOAspectsAppDelegate.m; sourceTree = "<group>"; };
 		C946E36B1AC5A60F00551F93 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C946E36C1AC5A60F00551F93 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C946E3711AC5A60F00551F93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -79,8 +79,8 @@
 		C946E3631AC5A60F00551F93 /* MOAspectsDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C946E3681AC5A60F00551F93 /* AppDelegate.h */,
-				C946E3691AC5A60F00551F93 /* AppDelegate.m */,
+				C946E3681AC5A60F00551F93 /* MOAspectsAppDelegate.h */,
+				C946E3691AC5A60F00551F93 /* MOAspectsAppDelegate.m */,
 				C946E36B1AC5A60F00551F93 /* ViewController.h */,
 				C946E36C1AC5A60F00551F93 /* ViewController.m */,
 				C946E3711AC5A60F00551F93 /* Images.xcassets */,
@@ -216,7 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C946E36D1AC5A60F00551F93 /* ViewController.m in Sources */,
-				C946E36A1AC5A60F00551F93 /* AppDelegate.m in Sources */,
+				C946E36A1AC5A60F00551F93 /* MOAspectsAppDelegate.m in Sources */,
 				C946E3671AC5A60F00551F93 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

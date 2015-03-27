@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  MOAspectsAppDelegate.h
 //  MOAspectsDemo
 //
 //  Created by Hiromi Motodera on 2015/03/27.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface MOAspectsAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

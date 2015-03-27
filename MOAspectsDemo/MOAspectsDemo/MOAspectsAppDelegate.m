@@ -1,18 +1,18 @@
 //
-//  AppDelegate.m
+//  MOAspectsAppDelegate.m
 //  MOAspectsDemo
 //
 //  Created by Hiromi Motodera on 2015/03/27.
 //  Copyright (c) 2015年 MOAI. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "MOAspectsAppDelegate.h"
 
-@interface AppDelegate ()
+@interface MOAspectsAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation MOAspectsAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
