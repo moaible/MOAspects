@@ -22,7 +22,6 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block
 {
-    NSAssert([MOARuntime hasInstanceMethodForClass:clazz selector:selector], @"");
     if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
         return NO;
     }
@@ -75,7 +74,6 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
-    NSAssert([MOARuntime hasClassMethodForClass:clazz selector:selector], @"");
     if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
         return NO;
     }
