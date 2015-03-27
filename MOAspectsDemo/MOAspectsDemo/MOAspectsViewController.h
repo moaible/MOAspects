@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MOAspectsViewController.h
 //  MOAspectsDemo
 //
 //  Created by Hiromi Motodera on 2015/03/27.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MOAspectsViewController : UIViewController
 
 
 @end

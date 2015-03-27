@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  MOAspectsViewController.m
 //  MOAspectsDemo
 //
 //  Created by Hiromi Motodera on 2015/03/27.
 //  Copyright (c) 2015年 MOAI. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MOAspectsViewController.h"
 
-@interface ViewController ()
+@interface MOAspectsViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MOAspectsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
