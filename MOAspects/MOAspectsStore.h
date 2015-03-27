@@ -15,8 +15,7 @@
 
 + (NSString *)keyWithClass:(Class)clazz
                 methodType:(MOAspectsTargetMethodType)methodType
-                  selector:(SEL)selector
-           aspectsSelector:(SEL)aspectsSelector;
+                  selector:(SEL)selector;
 
 - (void)setTarget:(MOAspectsTarget * )target forKey:(NSString *)key;
 

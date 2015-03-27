@@ -20,24 +20,18 @@
 {
     // Class method
     {
-        SEL aspectsSelector = NSSelectorFromString([NSString stringWithFormat:@"moa_testcase_%@",
-                                                    @"defaultCStringEncoding"]);
         XCTAssertTrue([[MOAspectsStore keyWithClass:[NSString class]
                                           methodType:MOAspectsTargetMethodTypeClass
-                                            selector:@selector(defaultCStringEncoding)
-                                     aspectsSelector:aspectsSelector]
-                       isEqualToString:@"+[NSString defaultCStringEncoding(moa_testcase_defaultCStringEncoding)]"]);
+                                            selector:@selector(defaultCStringEncoding)]
+                       isEqualToString:@"+[NSString defaultCStringEncoding]"]);
     }
     
     // Instance method
     {
-        SEL aspectsSelector = NSSelectorFromString([NSString stringWithFormat:@"moa_testcase_%@",
-                                                    @"length"]);
         XCTAssertTrue([[MOAspectsStore keyWithClass:[NSString class]
                                           methodType:MOAspectsTargetMethodTypeInstance
-                                            selector:@selector(length)
-                                     aspectsSelector:aspectsSelector]
-                       isEqualToString:@"-[NSString length(moa_testcase_length)]"]);
+                                            selector:@selector(length)]
+                       isEqualToString:@"-[NSString length]"]);
     }
 }
 

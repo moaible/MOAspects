@@ -16,7 +16,7 @@
 
 @implementation MOAspectsStore
 
-NSString * const MOAspectsStoreKeyFormat = @"%@[%@ %@(%@)]";
+NSString * const MOAspectsStoreKeyFormat = @"%@[%@ %@]";
 
 + (instancetype)sharedStore
 {
@@ -40,13 +40,11 @@ NSString * const MOAspectsStoreKeyFormat = @"%@[%@ %@(%@)]";
 + (NSString *)keyWithClass:(Class)clazz
                 methodType:(MOAspectsTargetMethodType)methodType
                   selector:(SEL)selector
-           aspectsSelector:(SEL)aspectsSelector
 {
     return [NSString stringWithFormat:MOAspectsStoreKeyFormat,
             methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
             NSStringFromClass(clazz),
-            NSStringFromSelector(selector),
-            NSStringFromSelector(aspectsSelector)];
+            NSStringFromSelector(selector)];
 }
 
 - (void)setTarget:(MOAspectsTarget *)target forKey:(NSString *)key

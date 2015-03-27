@@ -56,11 +56,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     [MOARuntime overwritingInstanceMethodForClass:clazz
                                          selector:@selector(forwardInvocation:)
                               implementationBlock:^(id object, NSInvocation *invocation) {
-                                  Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:[object class] selector:invocation.selector];
+                                  Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:[object class]
+                                                                                           selector:invocation.selector];
                                   NSString *key = [MOAspectsStore keyWithClass:rootClass
                                                                     methodType:MOAspectsTargetMethodTypeInstance
-                                                                      selector:invocation.selector
-                                                               aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector prefix:MOAspectsPrefix]];
+                                                                      selector:invocation.selector];
                                   MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
                                   if (target) {
                                       [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
@@ -97,15 +97,23 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                            aspectsSelector:aspectsSelector];
     [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
     
+    SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
+                                                                     prefix:MOAspectsPrefix];
+    if (![MOARuntime hasClassMethodForClass:rootClass selector:aspectsForwardInovcationSelector]) {
+        [MOARuntime copyClassMethodForClass:rootClass
+                                 atSelector:@selector(forwardInvocation:)
+                                 toSelector:aspectsForwardInovcationSelector];
+    }
+    
     __weak typeof(self) weakSelf = self;
     [MOARuntime overwritingClassMethodForClass:clazz
                                       selector:@selector(forwardInvocation:)
                            implementationBlock:^(id object, NSInvocation *invocation) {
-                               Class rootClass = [MOARuntime rootClassForClassRespondsToClass:[object class] selector:invocation.selector];
+                               Class rootClass = [MOARuntime rootClassForClassRespondsToClass:[object class]
+                                                                                     selector:invocation.selector];
                                NSString *key = [MOAspectsStore keyWithClass:rootClass
                                                                  methodType:MOAspectsTargetMethodTypeClass
-                                                                   selector:invocation.selector
-                                                            aspectsSelector:[MOARuntime selectorWithSelector:invocation.selector prefix:MOAspectsPrefix]];
+                                                                   selector:invocation.selector];
                                MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
                                if (target) {
                                    [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
@@ -140,8 +148,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 {
     NSString *key = [MOAspectsStore keyWithClass:clazz
                                       methodType:methodType
-                                        selector:selector
-                                 aspectsSelector:aspectsSelector];
+                                        selector:selector];
     MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
     if (!target) {
         target = [[MOAspectsTarget alloc] initWithClass:clazz
