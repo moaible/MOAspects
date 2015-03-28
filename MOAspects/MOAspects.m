@@ -25,10 +25,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                         usingBlock:(id)block
 {
     if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
+        MOAspectsErrorLog(@"");
         return NO;
     }
     
     if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
+        MOAspectsErrorLog(@"");
         return NO;
     }
     
@@ -86,10 +88,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                      usingBlock:(id)block
 {
     if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
+        MOAspectsErrorLog(@"");
         return NO;
     }
     
     if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
+        MOAspectsErrorLog(@"");
         return NO;
     }
     
