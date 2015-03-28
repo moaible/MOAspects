@@ -7,7 +7,7 @@ MOAspects is AOP library for iOS.
 ### Podfile
 
 ```
-pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
+pod 'MOAspects'
 ```
 
 ## Interface
@@ -33,9 +33,9 @@ pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
 ### Hook class method example
 
 ```objc
-[MOAspects hookClassMethodInClass:[NSNumber class]
-                            selector:@selector(numberWithInt:)
-                       aspectsHook:MOAspectsHookBefore
+[MOAspects hookClassMethodForClass:[NSNumber class]
+                          selector:@selector(numberWithInt:)
+                   aspectsPosition:MOAspectsPositionBefore
                         usingBlock:^(id class, int intVar){
                             NSLog(@"hooked %d number!", intVar);
                         }];
@@ -46,12 +46,12 @@ pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
 ### Hook instance method example
 
 ```objc
-[MOAspects hookInstanceMethodInClass:[NSString class]
-                            selector:@selector(length)
-                         aspectsHook:MOAspectsHookBefore
-                          usingBlock:^(NSString *string){
-                              NSLog(@"hooked %@!", string);
-                          }];
+[MOAspects hookInstanceMethodForClass:[NSString class]
+                             selector:@selector(length)
+                      aspectsPosition:MOAspectsPositionBefore
+                           usingBlock:^(NSString *string){
+                               NSLog(@"hooked %@!", string);
+                           }];
                        
 [@"abcde" length]; // -> hooked abcde!
 ```

@@ -24,6 +24,16 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block
 {
+    if (!clazz) {
+        MOAspectsErrorLog(@"class should not be nil");
+        return NO;
+    }
+    
+    if (!selector) {
+        MOAspectsErrorLog(@"selector should not be nil");
+        return NO;
+    }
+    
     if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
         MOAspectsErrorLog(@"-[%@ %@] unrecognized selector",
                           NSStringFromClass(clazz),
@@ -93,6 +103,16 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
+    if (!clazz) {
+        MOAspectsErrorLog(@"class should not be nil");
+        return NO;
+    }
+    
+    if (!selector) {
+        MOAspectsErrorLog(@"selector should not be nil");
+        return NO;
+    }
+    
     if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
         MOAspectsErrorLog(@"+[%@ %@] unrecognized selector",
                           NSStringFromClass(clazz),
