@@ -10,6 +10,5 @@
 
 @interface MOAspectsViewController : UIViewController
 
-
 @end
 

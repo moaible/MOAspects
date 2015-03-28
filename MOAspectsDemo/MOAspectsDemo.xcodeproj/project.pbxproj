@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C946E3671AC5A60F00551F93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3661AC5A60F00551F93 /* main.m */; };
-		C946E36A1AC5A60F00551F93 /* MOAspectsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3691AC5A60F00551F93 /* MOAspectsAppDelegate.m */; };
-		C946E36D1AC5A60F00551F93 /* MOAspectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E36C1AC5A60F00551F93 /* MOAspectsViewController.m */; };
 		C946E3721AC5A60F00551F93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C946E3711AC5A60F00551F93 /* Images.xcassets */; };
 		C946E3751AC5A60F00551F93 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C946E3731AC5A60F00551F93 /* LaunchScreen.xib */; };
 		C946E3811AC5A60F00551F93 /* MOAspectsDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3801AC5A60F00551F93 /* MOAspectsDemoTests.m */; };
@@ -20,6 +18,8 @@
 		C946E39B1AC5B69D00551F93 /* MOARuntimeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3981AC5B69D00551F93 /* MOARuntimeTestCase.m */; };
 		C946E39C1AC5B69D00551F93 /* MOAspectsStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E3991AC5B69D00551F93 /* MOAspectsStoreTestCase.m */; };
 		C946E39D1AC5B69D00551F93 /* MOAspectsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E39A1AC5B69D00551F93 /* MOAspectsTestCase.m */; };
+		C9C11FC21AC65BFE00EB6F61 /* MOAspectsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C11FBF1AC65BFE00EB6F61 /* MOAspectsAppDelegate.m */; };
+		C9C11FC31AC65BFE00EB6F61 /* MOAspectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +36,6 @@
 		C946E3611AC5A60F00551F93 /* MOAspectsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOAspectsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C946E3651AC5A60F00551F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C946E3661AC5A60F00551F93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C946E3681AC5A60F00551F93 /* MOAspectsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOAspectsAppDelegate.h; sourceTree = "<group>"; };
-		C946E3691AC5A60F00551F93 /* MOAspectsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOAspectsAppDelegate.m; sourceTree = "<group>"; };
-		C946E36B1AC5A60F00551F93 /* MOAspectsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOAspectsViewController.h; sourceTree = "<group>"; };
-		C946E36C1AC5A60F00551F93 /* MOAspectsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOAspectsViewController.m; sourceTree = "<group>"; };
 		C946E3711AC5A60F00551F93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C946E3741AC5A60F00551F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C946E37A1AC5A60F00551F93 /* MOAspectsDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MOAspectsDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +52,10 @@
 		C946E3981AC5B69D00551F93 /* MOARuntimeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOARuntimeTestCase.m; sourceTree = "<group>"; };
 		C946E3991AC5B69D00551F93 /* MOAspectsStoreTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsStoreTestCase.m; sourceTree = "<group>"; };
 		C946E39A1AC5B69D00551F93 /* MOAspectsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsTestCase.m; sourceTree = "<group>"; };
+		C9C11FBE1AC65BFE00EB6F61 /* MOAspectsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsAppDelegate.h; sourceTree = "<group>"; };
+		C9C11FBF1AC65BFE00EB6F61 /* MOAspectsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsAppDelegate.m; sourceTree = "<group>"; };
+		C9C11FC01AC65BFE00EB6F61 /* MOAspectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsViewController.h; sourceTree = "<group>"; };
+		C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +98,7 @@
 		C946E3631AC5A60F00551F93 /* MOAspectsDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C946E3681AC5A60F00551F93 /* MOAspectsAppDelegate.h */,
-				C946E3691AC5A60F00551F93 /* MOAspectsAppDelegate.m */,
-				C946E36B1AC5A60F00551F93 /* MOAspectsViewController.h */,
-				C946E36C1AC5A60F00551F93 /* MOAspectsViewController.m */,
+				C9C11FBD1AC65BFE00EB6F61 /* Classes */,
 				C946E3711AC5A60F00551F93 /* Images.xcassets */,
 				C946E3731AC5A60F00551F93 /* LaunchScreen.xib */,
 				C946E3641AC5A60F00551F93 /* Supporting Files */,
@@ -161,6 +158,17 @@
 			);
 			name = MOAspectsTest;
 			path = ../../MOAspectsTest;
+			sourceTree = "<group>";
+		};
+		C9C11FBD1AC65BFE00EB6F61 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C9C11FBE1AC65BFE00EB6F61 /* MOAspectsAppDelegate.h */,
+				C9C11FBF1AC65BFE00EB6F61 /* MOAspectsAppDelegate.m */,
+				C9C11FC01AC65BFE00EB6F61 /* MOAspectsViewController.h */,
+				C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,10 +271,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C946E3931AC5B58700551F93 /* MOARuntime.m in Sources */,
-				C946E36D1AC5A60F00551F93 /* MOAspectsViewController.m in Sources */,
 				C946E3941AC5B58700551F93 /* MOAspects.m in Sources */,
-				C946E36A1AC5A60F00551F93 /* MOAspectsAppDelegate.m in Sources */,
+				C9C11FC21AC65BFE00EB6F61 /* MOAspectsAppDelegate.m in Sources */,
 				C946E3671AC5A60F00551F93 /* main.m in Sources */,
+				C9C11FC31AC65BFE00EB6F61 /* MOAspectsViewController.m in Sources */,
 				C946E3961AC5B58700551F93 /* MOAspectsTarget.m in Sources */,
 				C946E3951AC5B58700551F93 /* MOAspectsStore.m in Sources */,
 			);
