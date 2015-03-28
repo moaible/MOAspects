@@ -54,7 +54,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                 methodType:MOAspectsTargetMethodTypeInstance
                                                   selector:selector
                                            aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
@@ -123,7 +123,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                 methodType:MOAspectsTargetMethodTypeClass
                                                   selector:selector
                                            aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
@@ -293,7 +293,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                             targetObject:object];
     for (NSValue *value in target.beforeSelectors) {
         SEL selector = [value pointerValue];
-        if ([object class] == [target classForSelector:selector]) {
+        Class targetClass = [target classForSelector:selector];
+        if ([object class] == targetClass) {
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
