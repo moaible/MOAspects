@@ -54,12 +54,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                 methodType:MOAspectsTargetMethodTypeInstance
                                                   selector:selector
                                            aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
-    if (![MOARuntime hasInstanceMethodForClass:rootClass selector:aspectsForwardInovcationSelector]) {
-        [MOARuntime copyInstanceMethodForClass:rootClass
+    if (![MOARuntime hasInstanceMethodForClass:clazz selector:aspectsForwardInovcationSelector]) {
+        [MOARuntime copyInstanceMethodForClass:clazz
                                     atSelector:@selector(forwardInvocation:)
                                     toSelector:aspectsForwardInovcationSelector];
     }
@@ -123,12 +123,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                 methodType:MOAspectsTargetMethodTypeClass
                                                   selector:selector
                                            aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:rootClass aspectsPosition:aspectsPosition usingBlock:block];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
-    if (![MOARuntime hasClassMethodForClass:rootClass selector:aspectsForwardInovcationSelector]) {
-        [MOARuntime copyClassMethodForClass:rootClass
+    if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsForwardInovcationSelector]) {
+        [MOARuntime copyClassMethodForClass:clazz
                                  atSelector:@selector(forwardInvocation:)
                                  toSelector:aspectsForwardInovcationSelector];
     }
