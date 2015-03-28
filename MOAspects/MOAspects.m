@@ -11,6 +11,8 @@
 #import "MOAspectsStore.h"
 #import "MOARuntime.h"
 
+#define MOAspectsErrorLog(...) do { NSLog(__VA_ARGS__); }while(0)
+
 @implementation MOAspects
 
 NSString * const MOAspectsPrefix = @"__moa_aspects_";
@@ -33,8 +35,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
     if (![MOARuntime hasInstanceMethodForClass:rootClass selector:aspectsSelector]) {
-        [MOARuntime copyInstanceMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector];
-        [MOARuntime overwritingMessageForwardInstanceMethodForClass:rootClass selector:selector];
+        if ([MOARuntime copyInstanceMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector]) {
+            [MOARuntime overwritingMessageForwardInstanceMethodForClass:rootClass selector:selector];
+        } else {
+            MOAspectsErrorLog(@"");
+        }
     }
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
@@ -91,8 +96,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     Class rootClass = [MOARuntime rootClassForClassRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
     if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsSelector]) {
-        [MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector];
-        [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
+        if ([MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
+            [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
+        } else {
+            MOAspectsErrorLog(@"");
+        }
     }
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
@@ -251,7 +259,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         NSGetSizeAndAlignment(type, &argSize, NULL);
         
         if (!(argp = reallocf(argp, argSize))) {
-            // TODO: エラー処理
+            MOAspectsErrorLog(@"");
             return nil;
         }
         [baseInvocation getArgument:argp atIndex:idx];

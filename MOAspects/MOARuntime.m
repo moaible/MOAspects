@@ -11,6 +11,8 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
+#define MOARuntimeErrorLog(...) do { NSLog(__VA_ARGS__); }while(0)
+
 typedef NS_OPTIONS(int, MOABlockFlags) {
     MOABlockFlagsHasCopyDisposeHelpers = (1 << 25),
     MOABlockFlagsHasSignature          = (1 << 30)
@@ -153,9 +155,7 @@ typedef struct _MOABlock {
 {
     MOABlockRef blockRef = (__bridge void *)block;
     if (!(blockRef->flags & MOABlockFlagsHasSignature)) {
-        // TODO: エラー処理のハンドリング
-        //        NSString *description = [NSString stringWithFormat:@"The block %@ doesn't contain a type signature.", block];
-        //        AspectError(AspectErrorMissingBlockSignature, description);
+        MOARuntimeErrorLog(@"");
         return nil;
     }
     void *descriptor = blockRef->descriptor;
@@ -164,9 +164,7 @@ typedef struct _MOABlock {
         descriptor += 2 * sizeof(void *);
     }
     if (!descriptor) {
-        // TODO: エラー処理のハンドリング
-        //        NSString *description = [NSString stringWithFormat:@"The block %@ doesn't has a type signature.", block];
-        //        AspectError(AspectErrorMissingBlockSignature, description);
+        MOARuntimeErrorLog(@"");
         return nil;
     }
     return (*(const char **)descriptor);
