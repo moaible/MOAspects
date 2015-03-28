@@ -25,12 +25,16 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                         usingBlock:(id)block
 {
     if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
-        MOAspectsErrorLog(@"");
+        MOAspectsErrorLog(@"-[%@ %@] unrecognized selector",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
         return NO;
     }
     
     if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
-        MOAspectsErrorLog(@"");
+        MOAspectsErrorLog(@"-[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
         return NO;
     }
     
@@ -88,12 +92,16 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                      usingBlock:(id)block
 {
     if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
-        MOAspectsErrorLog(@"");
+        MOAspectsErrorLog(@"+[%@ %@] unrecognized selector",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
         return NO;
     }
     
     if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
-        MOAspectsErrorLog(@"");
+        MOAspectsErrorLog(@"+[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
         return NO;
     }
     
@@ -263,7 +271,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         NSGetSizeAndAlignment(type, &argSize, NULL);
         
         if (!(argp = reallocf(argp, argSize))) {
-            MOAspectsErrorLog(@"");
+            MOAspectsErrorLog(@"missing create invocation");
             return nil;
         }
         [baseInvocation getArgument:argp atIndex:idx];
