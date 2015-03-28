@@ -1,4 +1,4 @@
-# MOAspects v0.0.1
+# MOAspects v0.1.0
 
 MOAspects is AOP library for iOS.
 
@@ -7,7 +7,7 @@ MOAspects is AOP library for iOS.
 ### Podfile
 
 ```
-pod "MOAspects", :git => 'https://github.com/MO-AI/MOAspects.git'
+pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
 ```
 
 ## Interface
@@ -15,43 +15,43 @@ pod "MOAspects", :git => 'https://github.com/MO-AI/MOAspects.git'
 ### MOAspect.h
 
 ```objc
-// hook instance method
-+ (BOOL)hookInstanceMethodInClass:(Class)clazz
-                         selector:(SEL)selector
-                      aspectsHook:(MOAspectsHook)aspectsHook
-                       usingBlock:(id)block;
+// hook instance method 
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                        usingBlock:(id)block;
 
 // hook class method
-+ (BOOL)hookClassMethodInClass:(Class)clazz
-                      selector:(SEL)selector
-                   aspectsHook:(MOAspectsHook)aspectsHook
-                    usingBlock:(id)block;
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                     usingBlock:(id)block;
 ```
 
 ## How to use
 
-### Hook is instance method example
+### Hook class method example
 
 ```objc
-[MOAspects hookInstanceMethodInClass:[NSNumber class]
+[MOAspects hookClassMethodInClass:[NSNumber class]
                             selector:@selector(numberWithInt:)
-                         aspectsHook:MOAspectsHookBefore
-                          usingBlock:^(id class, int intVar){
-                              NSLog(@"hooked %d number!", intVar);
-                          }];
+                       aspectsHook:MOAspectsHookBefore
+                        usingBlock:^(id class, int intVar){
+                            NSLog(@"hooked %d number!", intVar);
+                        }];
                           
-[NSNumber numberWithInt:10]; // -> hooked 10 number!!
+[NSNumber numberWithInt:10]; // -> hooked 10 number!
 ```
 
-### Hook is class method example
+### Hook instance method example
 
 ```objc
-[MOAspects hookClassMethodInClass:[NSString class]
-                         selector:@selector(length)
-                      aspectsHook:MOAspectsHookBefore
-                       usingBlock:^(NSString *string){
+[MOAspects hookInstanceMethodInClass:[NSString class]
+                            selector:@selector(length)
+                         aspectsHook:MOAspectsHookBefore
+                          usingBlock:^(NSString *string){
                               NSLog(@"hooked %@!", string);
-                       }];
+                          }];
                        
 [@"abcde" length]; // -> hooked abcde!
 ```
