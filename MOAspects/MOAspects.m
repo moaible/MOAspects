@@ -293,8 +293,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                             targetObject:object];
     for (NSValue *value in target.beforeSelectors) {
         SEL selector = [value pointerValue];
-        Class targetClass = [target classForSelector:selector];
-        if ([object class] == targetClass) {
+        if ([object class] == [target classForSelector:selector]) {
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
