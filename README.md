@@ -7,7 +7,7 @@ MOAspects is AOP library for iOS.
 ### Podfile
 
 ```
-pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
+pod 'MOAspects'
 ```
 
 ## Interface
