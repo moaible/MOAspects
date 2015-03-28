@@ -44,7 +44,9 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         if ([MOARuntime copyInstanceMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector]) {
             [MOARuntime overwritingMessageForwardInstanceMethodForClass:rootClass selector:selector];
         } else {
-            MOAspectsErrorLog(@"");
+            MOAspectsErrorLog(@"-[%@ %@] failed copy method",
+                              NSStringFromClass(clazz),
+                              NSStringFromSelector(selector));
         }
     }
     
@@ -111,7 +113,9 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         if ([MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
             [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
         } else {
-            MOAspectsErrorLog(@"");
+            MOAspectsErrorLog(@"+[%@ %@] failed copy method",
+                              NSStringFromClass(clazz),
+                              NSStringFromSelector(selector));
         }
     }
     
