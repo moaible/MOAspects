@@ -33,12 +33,12 @@ pod 'MOAspects'
 ### Hook class method example
 
 ```objc
-[MOAspects hookClassMethodInClass:[NSNumber class]
-                         selector:@selector(numberWithInt:)
-                  aspectsPosition:MOAspectsPositionBefore
-                       usingBlock:^(id class, int intVar){
-                           NSLog(@"hooked %d number!", intVar);
-                       }];
+[MOAspects hookClassMethodForClass:[NSNumber class]
+                          selector:@selector(numberWithInt:)
+                   aspectsPosition:MOAspectsPositionBefore
+                        usingBlock:^(id class, int intVar){
+                            NSLog(@"hooked %d number!", intVar);
+                        }];
                           
 [NSNumber numberWithInt:10]; // -> hooked 10 number!
 ```
@@ -46,12 +46,12 @@ pod 'MOAspects'
 ### Hook instance method example
 
 ```objc
-[MOAspects hookInstanceMethodInClass:[NSString class]
-                            selector:@selector(length)
-                     aspectsPosition:MOAspectsPositionBefore
-                          usingBlock:^(NSString *string){
-                              NSLog(@"hooked %@!", string);
-                          }];
+[MOAspects hookInstanceMethodForClass:[NSString class]
+                             selector:@selector(length)
+                      aspectsPosition:MOAspectsPositionBefore
+                           usingBlock:^(NSString *string){
+                               NSLog(@"hooked %@!", string);
+                           }];
                        
 [@"abcde" length]; // -> hooked abcde!
 ```
