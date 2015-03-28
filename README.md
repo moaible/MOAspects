@@ -34,11 +34,11 @@ pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
 
 ```objc
 [MOAspects hookClassMethodInClass:[NSNumber class]
-                            selector:@selector(numberWithInt:)
-                       aspectsHook:MOAspectsHookBefore
-                        usingBlock:^(id class, int intVar){
-                            NSLog(@"hooked %d number!", intVar);
-                        }];
+                         selector:@selector(numberWithInt:)
+                  aspectsPosition:MOAspectsPositionBefore
+                       usingBlock:^(id class, int intVar){
+                           NSLog(@"hooked %d number!", intVar);
+                       }];
                           
 [NSNumber numberWithInt:10]; // -> hooked 10 number!
 ```
@@ -48,7 +48,7 @@ pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
 ```objc
 [MOAspects hookInstanceMethodInClass:[NSString class]
                             selector:@selector(length)
-                         aspectsHook:MOAspectsHookBefore
+                     aspectsPosition:MOAspectsPositionBefore
                           usingBlock:^(NSString *string){
                               NSLog(@"hooked %@!", string);
                           }];
