@@ -60,4 +60,5 @@ pod 'MOAspects', :git => 'https://github.com/MO-AI/MOAspects.git'
 
 |**Version**|**32bit**|**64bit**|**Can Hook<br>Method Type**|**Class<br>Hierarchy Hook**|**Hook<br>Return Value**|
 |:---:|:---:|:---:|:---:|:---:|:---:|
+|v0.1.0| ⚪︎ | ⚪︎ | Instance / Class | Supported | Not supported |
 |v0.0.1| ⚪︎ | ⚪︎ | Instance / Class | Supported | Not supported |
