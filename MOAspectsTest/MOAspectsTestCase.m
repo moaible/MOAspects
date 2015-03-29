@@ -268,7 +268,7 @@
 
 #pragma makr - Child class test case
 
-- (void)testChild
+- (void)testChildClassMethod
 {
     NSString *string;
     string = [MOAspectsTestChildObject stringWithBOOL:YES];
@@ -283,10 +283,18 @@
                             usingBlock:^(id target, BOOL BOOLVar){
                                 hookedString = BOOLVar ? @"真" : @"偽";
                             }];
+    
+    hookedString = nil;
     string = [MOAspectsTestChildObject stringWithBOOL:YES];
     XCTAssertTrue([string isEqualToString:@"真"]);
+    XCTAssertNotNil(hookedString);
+    XCTAssertTrue([string isEqualToString:hookedString]);
+    
+    hookedString = nil;
     string = [MOAspectsTestChildObject stringWithBOOL:NO];
     XCTAssertTrue([string isEqualToString:@"偽"]);
+    XCTAssertNotNil(hookedString);
+    XCTAssertTrue([string isEqualToString:hookedString]);
 }
 
 @end
