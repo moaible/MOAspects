@@ -8,16 +8,80 @@
 
 #import "MOAspectsViewController.h"
 
+#import "MOAspects.h"
+
 @interface MOAspectsViewController ()
+
+@property (nonatomic) UILabel *aspectsLogView;
 
 @end
 
 @implementation MOAspectsViewController
 
+#pragma mark - Load
+
++ (void)load
+{
+    NSArray *selectors = @[NSStringFromSelector(@selector(viewWillAppear:)),
+                           NSStringFromSelector(@selector(viewDidAppear:))];
+    
+    for (NSString *selectorStr in selectors) {
+        [MOAspects hookInstanceMethodForClass:[self class]
+                                     selector:NSSelectorFromString(selectorStr)
+                              aspectsPosition:MOAspectsPositionBefore
+                                   usingBlock:^(MOAspectsViewController *viewController){
+                                       NSString *log = [NSString stringWithFormat:@"-[%@ %@]",
+                                                        NSStringFromClass([self class]),
+                                                        selectorStr];
+                                       NSLog(@"%@", log);
+                                       viewController.aspectsLogView.text = log;
+                                   }];
+    }
+}
+
+#pragma mark - Initialize
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.title = @"Demo";
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (UILabel *)aspectsLogView
+{
+    if (!_aspectsLogView) {
+        _aspectsLogView = [[UILabel alloc] init];
+        _aspectsLogView.backgroundColor = [UIColor blackColor];
+        _aspectsLogView.textColor = [UIColor whiteColor];
+        _aspectsLogView.font = [UIFont boldSystemFontOfSize:15.f];
+    }
+    return _aspectsLogView;
+}
+
 #pragma mark - View life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addSubview:self.aspectsLogView];
+}
+
+#pragma mark - Layout
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    self.aspectsLogView.frame = (CGRect) {
+        .origin = CGPointMake(0,
+                              self.view.bounds.size.height - 50.f),
+        .size = CGSizeMake(self.view.bounds.size.width,
+                           50.f)
+    };
 }
 
 #pragma mark - Memory management

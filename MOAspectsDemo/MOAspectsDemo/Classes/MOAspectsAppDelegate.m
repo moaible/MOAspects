@@ -41,12 +41,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [MOAspects hookInstanceMethodForClass:[MOAspectsViewController class]
-                                 selector:@selector(viewDidLoad)
-                          aspectsPosition:MOAspectsPositionBefore usingBlock:^{
-                              NSLog(@"Appear MOAspectsViewController.");
-                          }];
-    
     [self.window makeKeyAndVisible];
     return YES;
 }
