@@ -83,6 +83,7 @@
     }
     
     XCTAssertTrue(ret);
+    XCTAssertTrue(classNames.count > 1000);
 }
 
 - (void)testClassNamesForRegexPattern
