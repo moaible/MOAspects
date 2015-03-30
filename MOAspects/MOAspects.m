@@ -50,8 +50,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![MOARuntime hasInstanceMethodForClass:clazz selector:aspectsSelector]) {
-        if (![MOARuntime copyInstanceMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
+    if (![MOARuntime hasInstanceMethodForClass:rootClass selector:aspectsSelector]) {
+        if (![MOARuntime copyInstanceMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector]) {
             MOAspectsErrorLog(@"-[%@ %@] failed copy method",
                               NSStringFromClass(clazz),
                               NSStringFromSelector(selector));
@@ -128,8 +128,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     Class rootClass = [MOARuntime rootClassForClassRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsSelector]) {
-        if (![MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
+    if (![MOARuntime hasClassMethodForClass:rootClass selector:aspectsSelector]) {
+        if (![MOARuntime copyClassMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector]) {
             MOAspectsErrorLog(@"+[%@ %@] failed copy method",
                               NSStringFromClass(clazz),
                               NSStringFromSelector(selector));

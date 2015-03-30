@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         	= "MOAspects"
-  s.version      	= "0.1.2"
+  s.version      	= "0.1.3"
   s.summary      	= "AOP Library."
   s.homepage     	= "https://github.com/MO-AI/MOAspects"
   s.license      	= 'MIT'
