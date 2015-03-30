@@ -51,14 +51,13 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
     if (![MOARuntime hasInstanceMethodForClass:clazz selector:aspectsSelector]) {
-        if ([MOARuntime copyInstanceMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
-            [MOARuntime overwritingMessageForwardInstanceMethodForClass:clazz selector:selector];
-        } else {
+        if (![MOARuntime copyInstanceMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
             MOAspectsErrorLog(@"-[%@ %@] failed copy method",
                               NSStringFromClass(clazz),
                               NSStringFromSelector(selector));
         }
     }
+    [MOARuntime overwritingMessageForwardInstanceMethodForClass:clazz selector:selector];
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
                                                 methodType:MOAspectsTargetMethodTypeInstance
@@ -130,14 +129,13 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     Class rootClass = [MOARuntime rootClassForClassRespondsToClass:clazz selector:selector];
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
     if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsSelector]) {
-        if ([MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
-            [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
-        } else {
+        if (![MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
             MOAspectsErrorLog(@"+[%@ %@] failed copy method",
                               NSStringFromClass(clazz),
                               NSStringFromSelector(selector));
         }
     }
+    [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
                                                 methodType:MOAspectsTargetMethodTypeClass
