@@ -24,27 +24,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block
 {
-    if (!clazz) {
-        MOAspectsErrorLog(@"class should not be nil");
-        return NO;
-    }
-    
-    if (!selector) {
-        MOAspectsErrorLog(@"selector should not be nil");
-        return NO;
-    }
-    
-    if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
-        MOAspectsErrorLog(@"-[%@ %@] unrecognized selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
-        return NO;
-    }
-    
-    if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
-        MOAspectsErrorLog(@"-[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
+    if (![self isValidClass:clazz selector:selector methodType:MOAspectsTargetMethodTypeInstance]) {
         return NO;
     }
     
@@ -102,27 +82,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
-    if (!clazz) {
-        MOAspectsErrorLog(@"class should not be nil");
-        return NO;
-    }
-    
-    if (!selector) {
-        MOAspectsErrorLog(@"selector should not be nil");
-        return NO;
-    }
-    
-    if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
-        MOAspectsErrorLog(@"+[%@ %@] unrecognized selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
-        return NO;
-    }
-    
-    if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
-        MOAspectsErrorLog(@"+[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
+    if (![self isValidClass:clazz selector:selector methodType:MOAspectsTargetMethodTypeClass]) {
         return NO;
     }
     
@@ -327,6 +287,45 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
             [aspectsInvocation invokeWithTarget:object];
         }
     }
+}
+
++ (BOOL)isValidClass:(Class)clazz selector:(SEL)selector methodType:(MOAspectsTargetMethodType)methodType
+{
+    if (!clazz) {
+        MOAspectsErrorLog(@"class should not be nil");
+        return NO;
+    }
+    
+    if (!selector) {
+        MOAspectsErrorLog(@"selector should not be nil");
+        return NO;
+    }
+    
+    if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
+        MOAspectsErrorLog(@"%@[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
+                          methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
+        return NO;
+    }
+    
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
+            MOAspectsErrorLog(@"+[%@ %@] unrecognized selector",
+                              NSStringFromClass(clazz),
+                              NSStringFromSelector(selector));
+            return NO;
+        }
+    } else {
+        if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
+            MOAspectsErrorLog(@"-[%@ %@] unrecognized selector",
+                              NSStringFromClass(clazz),
+                              NSStringFromSelector(selector));
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 @end
