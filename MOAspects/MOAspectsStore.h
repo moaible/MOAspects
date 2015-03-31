@@ -14,8 +14,8 @@
 + (instancetype)sharedStore;
 
 + (NSString *)keyWithClass:(Class)clazz
-                methodType:(MOAspectsTargetMethodType)methodType
-                  selector:(SEL)selector;
+                  selector:(SEL)selector
+                methodType:(MOAspectsTargetMethodType)methodType;
 
 - (void)setTarget:(MOAspectsTarget * )target forKey:(NSString *)key;
 

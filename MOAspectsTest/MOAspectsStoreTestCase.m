@@ -21,16 +21,16 @@
     // Class method
     {
         XCTAssertTrue([[MOAspectsStore keyWithClass:[NSString class]
-                                          methodType:MOAspectsTargetMethodTypeClass
-                                            selector:@selector(defaultCStringEncoding)]
+                                            selector:@selector(defaultCStringEncoding)
+                                         methodType:MOAspectsTargetMethodTypeClass]
                        isEqualToString:@"+[NSString defaultCStringEncoding]"]);
     }
     
     // Instance method
     {
         XCTAssertTrue([[MOAspectsStore keyWithClass:[NSString class]
-                                          methodType:MOAspectsTargetMethodTypeInstance
-                                            selector:@selector(length)]
+                                            selector:@selector(length)
+                                         methodType:MOAspectsTargetMethodTypeInstance]
                        isEqualToString:@"-[NSString length]"]);
     }
 }
