@@ -295,6 +295,16 @@
     XCTAssertTrue([string isEqualToString:@"偽"]);
     XCTAssertNotNil(hookedString);
     XCTAssertTrue([string isEqualToString:hookedString]);
+    
+    hookedString = nil;
+    string = [MOAspectsTestObject stringWithBOOL:YES];
+    XCTAssertTrue([string isEqualToString:@"YES"]);
+    XCTAssertNil(hookedString);
+    
+    hookedString = nil;
+    string = [MOAspectsTestObject stringWithBOOL:NO];
+    XCTAssertTrue([string isEqualToString:@"NO"]);
+    XCTAssertNil(hookedString);
 }
 
 - (void)testChildInstanceMethod
