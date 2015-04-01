@@ -12,32 +12,9 @@
 
 @interface MOAspectsViewController ()
 
-@property (nonatomic) UILabel *aspectsLogView;
-
 @end
 
 @implementation MOAspectsViewController
-
-#pragma mark - Load
-
-+ (void)load
-{
-    NSArray *selectors = @[NSStringFromSelector(@selector(viewWillAppear:)),
-                           NSStringFromSelector(@selector(viewDidAppear:))];
-    
-    for (NSString *selectorStr in selectors) {
-        [MOAspects hookInstanceMethodForClass:[self class]
-                                     selector:NSSelectorFromString(selectorStr)
-                              aspectsPosition:MOAspectsPositionBefore
-                                   usingBlock:^(MOAspectsViewController *viewController){
-                                       NSString *log = [NSString stringWithFormat:@"-[%@ %@]",
-                                                        NSStringFromClass([self class]),
-                                                        selectorStr];
-                                       NSLog(@"%@", log);
-                                       viewController.aspectsLogView.text = log;
-                                   }];
-    }
-}
 
 #pragma mark - Initialize
 

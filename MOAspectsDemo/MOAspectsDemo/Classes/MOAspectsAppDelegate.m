@@ -17,6 +17,37 @@
 
 @implementation MOAspectsAppDelegate
 
+#pragma mark - Load
+
++ (void)load
+{
+    NSArray *selectors = @[NSStringFromSelector(@selector(viewWillAppear:)),
+                           NSStringFromSelector(@selector(viewDidAppear:))];
+    
+    for (NSString *selectorStr in selectors) {
+        [MOAspects hookInstanceMethodForClass:[MOAspectsViewController class]
+                                     selector:NSSelectorFromString(selectorStr)
+                              aspectsPosition:MOAspectsPositionBefore
+                                   usingBlock:^(MOAspectsViewController *viewController){
+                                       NSString *log = [NSString stringWithFormat:@"-[%@ %@]",
+                                                        NSStringFromClass([MOAspectsViewController class]),
+                                                        selectorStr];
+                                       NSLog(@"%@", log);
+                                       viewController.aspectsLogView.text = log;
+                                   }];
+        [MOAspects hookInstanceMethodForClass:[UINavigationController class]
+                                     selector:NSSelectorFromString(selectorStr)
+                              aspectsPosition:MOAspectsPositionBefore
+                                   usingBlock:^(UINavigationController *viewController){
+                                       NSString *log = [NSString stringWithFormat:@"-[%@ %@]",
+                                                        NSStringFromClass([UINavigationController class]),
+                                                        selectorStr];
+                                       NSLog(@"%@", log);
+                                   }];
+        
+    }
+}
+
 #pragma mark - Property
 
 - (UIWindow *)window

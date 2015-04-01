@@ -10,5 +10,7 @@
 
 @interface MOAspectsViewController : UIViewController
 
+@property (nonatomic) UILabel *aspectsLogView;
+
 @end
 
