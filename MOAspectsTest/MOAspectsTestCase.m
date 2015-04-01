@@ -268,7 +268,7 @@
 
 #pragma makr - Child class test case
 
-- (void)testChild
+- (void)testChildClassMethod
 {
     NSString *string;
     string = [MOAspectsTestChildObject stringWithBOOL:YES];
@@ -283,10 +283,58 @@
                             usingBlock:^(id target, BOOL BOOLVar){
                                 hookedString = BOOLVar ? @"真" : @"偽";
                             }];
+    
+    hookedString = nil;
     string = [MOAspectsTestChildObject stringWithBOOL:YES];
     XCTAssertTrue([string isEqualToString:@"真"]);
+    XCTAssertNotNil(hookedString);
+    XCTAssertTrue([string isEqualToString:hookedString]);
+    
+    hookedString = nil;
     string = [MOAspectsTestChildObject stringWithBOOL:NO];
     XCTAssertTrue([string isEqualToString:@"偽"]);
+    XCTAssertNotNil(hookedString);
+    XCTAssertTrue([string isEqualToString:hookedString]);
+    
+    hookedString = nil;
+    string = [MOAspectsTestObject stringWithBOOL:YES];
+    XCTAssertTrue([string isEqualToString:@"YES"]);
+    XCTAssertNil(hookedString);
+    
+    hookedString = nil;
+    string = [MOAspectsTestObject stringWithBOOL:NO];
+    XCTAssertTrue([string isEqualToString:@"NO"]);
+    XCTAssertNil(hookedString);
+}
+
+- (void)testChildInstanceMethod
+{
+    MOAspectsTestChildObject *object = [[MOAspectsTestChildObject alloc] init];
+    NSString *string;
+    string = [object stringWithBOOL:YES];
+    XCTAssertTrue([string isEqualToString:@"真"]);
+    string = [object stringWithBOOL:NO];
+    XCTAssertTrue([string isEqualToString:@"偽"]);
+    
+    __block NSString *hookedString;
+    [MOAspects hookInstanceMethodForClass:[MOAspectsTestChildObject class]
+                                 selector:@selector(stringWithBOOL:)
+                          aspectsPosition:MOAspectsPositionBefore
+                               usingBlock:^(id target, BOOL BOOLVar){
+                                   hookedString = BOOLVar ? @"真" : @"偽";
+                               }];
+    
+    hookedString = nil;
+    string = [object stringWithBOOL:YES];
+    XCTAssertTrue([string isEqualToString:@"真"]);
+    XCTAssertNotNil(hookedString);
+    XCTAssertTrue([string isEqualToString:hookedString]);
+    
+    hookedString = nil;
+    string = [object stringWithBOOL:NO];
+    XCTAssertTrue([string isEqualToString:@"偽"]);
+    XCTAssertNotNil(hookedString);
+    XCTAssertTrue([string isEqualToString:hookedString]);
 }
 
 @end

@@ -24,78 +24,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block
 {
-    if (!clazz) {
-        MOAspectsErrorLog(@"class should not be nil");
-        return NO;
-    }
-    
-    if (!selector) {
-        MOAspectsErrorLog(@"selector should not be nil");
-        return NO;
-    }
-    
-    if (![MOARuntime hasInstanceMethodForClass:clazz selector:selector]) {
-        MOAspectsErrorLog(@"-[%@ %@] unrecognized selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
-        return NO;
-    }
-    
-    if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
-        MOAspectsErrorLog(@"-[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
-        return NO;
-    }
-    
-    Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:clazz selector:selector];
-    SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![MOARuntime hasInstanceMethodForClass:rootClass selector:aspectsSelector]) {
-        if ([MOARuntime copyInstanceMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector]) {
-            [MOARuntime overwritingMessageForwardInstanceMethodForClass:rootClass selector:selector];
-        } else {
-            MOAspectsErrorLog(@"-[%@ %@] failed copy method",
-                              NSStringFromClass(clazz),
-                              NSStringFromSelector(selector));
-        }
-    }
-    
-    MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
-                                                methodType:MOAspectsTargetMethodTypeInstance
-                                                  selector:selector
-                                           aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
-    
-    SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
-                                                                     prefix:MOAspectsPrefix];
-    if (![MOARuntime hasInstanceMethodForClass:clazz selector:aspectsForwardInovcationSelector]) {
-        [MOARuntime copyInstanceMethodForClass:clazz
-                                    atSelector:@selector(forwardInvocation:)
-                                    toSelector:aspectsForwardInovcationSelector];
-    }
-    
-    __weak typeof(self) weakSelf = self;
-    [MOARuntime overwritingInstanceMethodForClass:clazz
-                                         selector:@selector(forwardInvocation:)
-                              implementationBlock:^(id object, NSInvocation *invocation) {
-                                  Class rootClass = [MOARuntime rootClassForInstanceRespondsToClass:[object class]
-                                                                                           selector:invocation.selector];
-                                  NSString *key = [MOAspectsStore keyWithClass:rootClass
-                                                                    methodType:MOAspectsTargetMethodTypeInstance
-                                                                      selector:invocation.selector];
-                                  MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
-                                  if (target) {
-                                      [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
-                                  } else {
-                                      SEL aspectsForwardInovcationSelector = [MOARuntime
-                                                                              selectorWithSelector:@selector(forwardInvocation:)
-                                                                              prefix:MOAspectsPrefix];
-                                      [invocation setSelector:aspectsForwardInovcationSelector];
-                                      [invocation invoke];
-                                  }
-                              }];
-    
-    return YES;
+    return [self hookMethodForClass:clazz
+                           selector:selector
+                         methodType:MOAspectsTargetMethodTypeInstance
+                    aspectsPosition:aspectsPosition
+                         usingBlock:block];
 }
 
 + (BOOL)hookClassMethodForClass:(Class)clazz
@@ -103,78 +36,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
-    if (!clazz) {
-        MOAspectsErrorLog(@"class should not be nil");
-        return NO;
-    }
-    
-    if (!selector) {
-        MOAspectsErrorLog(@"selector should not be nil");
-        return NO;
-    }
-    
-    if (![MOARuntime hasClassMethodForClass:clazz selector:selector]) {
-        MOAspectsErrorLog(@"+[%@ %@] unrecognized selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
-        return NO;
-    }
-    
-    if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
-        MOAspectsErrorLog(@"+[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
-                          NSStringFromClass(clazz),
-                          NSStringFromSelector(selector));
-        return NO;
-    }
-    
-    Class rootClass = [MOARuntime rootClassForClassRespondsToClass:clazz selector:selector];
-    SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsSelector]) {
-        if ([MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:aspectsSelector]) {
-            [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
-        } else {
-            MOAspectsErrorLog(@"+[%@ %@] failed copy method",
-                              NSStringFromClass(clazz),
-                              NSStringFromSelector(selector));
-        }
-    }
-    
-    MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
-                                                methodType:MOAspectsTargetMethodTypeClass
-                                                  selector:selector
-                                           aspectsSelector:aspectsSelector];
-    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
-    
-    SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
-                                                                     prefix:MOAspectsPrefix];
-    if (![MOARuntime hasClassMethodForClass:clazz selector:aspectsForwardInovcationSelector]) {
-        [MOARuntime copyClassMethodForClass:clazz
-                                 atSelector:@selector(forwardInvocation:)
-                                 toSelector:aspectsForwardInovcationSelector];
-    }
-    
-    __weak typeof(self) weakSelf = self;
-    [MOARuntime overwritingClassMethodForClass:clazz
-                                      selector:@selector(forwardInvocation:)
-                           implementationBlock:^(id object, NSInvocation *invocation) {
-                               Class rootClass = [MOARuntime rootClassForClassRespondsToClass:[object class]
-                                                                                     selector:invocation.selector];
-                               NSString *key = [MOAspectsStore keyWithClass:rootClass
-                                                                 methodType:MOAspectsTargetMethodTypeClass
-                                                                   selector:invocation.selector];
-                               MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
-                               if (target) {
-                                   [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
-                               } else {
-                                   SEL aspectsForwardInovcationSelector = [MOARuntime
-                                                                           selectorWithSelector:@selector(forwardInvocation:)
-                                                                           prefix:MOAspectsPrefix];
-                                   [invocation setSelector:aspectsForwardInovcationSelector];
-                                   [invocation invoke];
-                               }
-                           }];
-    
-    return YES;
+    return [self hookMethodForClass:clazz
+                           selector:selector
+                         methodType:MOAspectsTargetMethodTypeClass
+                    aspectsPosition:aspectsPosition
+                         usingBlock:block];
 }
 
 #pragma mark - Private
@@ -195,25 +61,6 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                  NSStringFromSelector(target.selector)]);
 }
 
-+ (MOAspectsTarget *)targetInStoreWithClass:(Class)clazz
-                                 methodType:(MOAspectsTargetMethodType)methodType
-                                   selector:(SEL)selector
-                            aspectsSelector:(SEL)aspectsSelector
-{
-    NSString *key = [MOAspectsStore keyWithClass:clazz
-                                      methodType:methodType
-                                        selector:selector];
-    MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
-    if (!target) {
-        target = [[MOAspectsTarget alloc] initWithClass:clazz
-                                              mehodType:methodType
-                                         methodSelector:selector
-                                        aspectsSelector:aspectsSelector];
-        [[MOAspectsStore sharedStore] setTarget:target forKey:key];
-    }
-    return target;
-}
-
 + (void)addHookMethodWithTarget:(MOAspectsTarget *)target
                           class:(Class)clazz
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
@@ -224,8 +71,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         {
             SEL beforeSelector = [self beforeSelectorWithTarget:target];
             [self addMethodForClass:target.class
-                         methodType:target.methodType
                            selector:beforeSelector
+                         methodType:target.methodType
                               block:block];
             [target addBeforeSelector:beforeSelector forClass:clazz];
         }
@@ -234,8 +81,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         {
             SEL afterSelector = [self afterSelectorWithTarget:target];
             [self addMethodForClass:target.class
-                         methodType:target.methodType
                            selector:afterSelector
+                         methodType:target.methodType
                               block:block];
             [target addAfterSelector:afterSelector forClass:clazz];
         }
@@ -243,44 +90,35 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     }
 }
 
-+ (NSMethodSignature *)methodSignatureWithTarget:(MOAspectsTarget *)target
++ (BOOL)isValidClass:(Class)clazz selector:(SEL)selector methodType:(MOAspectsTargetMethodType)methodType
 {
-    NSMethodSignature *methodSignature;
-    if (target.methodType == MOAspectsTargetMethodTypeClass) {
-        methodSignature = [MOARuntime classMethodSignatureWithClass:target.class
-                                                           selector:target.selector];
-    } else {
-        methodSignature = [MOARuntime instanceMethodSignatureWithClass:target.class
-                                                              selector:target.selector];
+    if (!clazz) {
+        MOAspectsErrorLog(@"class should not be nil");
+        return NO;
     }
-    return methodSignature;
-}
-
-+ (Class)rootClassWithClass:(Class)clazz methodType:(MOAspectsTargetMethodType)methodType selector:(SEL)selector
-{
-    if (methodType == MOAspectsTargetMethodTypeClass) {
-        return [MOARuntime rootClassForClassRespondsToClass:clazz
-                                                   selector:selector];
-    } else {
-        return [MOARuntime rootClassForInstanceRespondsToClass:clazz
-                                                      selector:selector];
+    
+    if (!selector) {
+        MOAspectsErrorLog(@"selector should not be nil");
+        return NO;
     }
-}
-
-+ (BOOL)addMethodForClass:(Class)clazz
-               methodType:(MOAspectsTargetMethodType)methodType
-                 selector:(SEL)selector
-                    block:(id)block
-{
-    if (methodType == MOAspectsTargetMethodTypeClass) {
-        return [MOARuntime addClassMethodForClass:clazz
-                                         selector:selector
-                              implementationBlock:block];
-    } else {
-        return [MOARuntime addInstanceMethodForClass:clazz
-                                            selector:selector
-                                 implementationBlock:block];
+    
+    if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
+        MOAspectsErrorLog(@"%@[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
+                          methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
+        return NO;
     }
+    
+    if (![self hasMethodForClass:clazz selector:selector methodType:methodType]) {
+        MOAspectsErrorLog(@"%@[%@ %@] unrecognized selector",
+                          methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
+        return NO;
+    }
+    
+    return YES;
 }
 
 + (NSInvocation *)invocationWithBaseInvocation:(NSInvocation *)baseInvocation
@@ -328,6 +166,164 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
+    }
+}
+
++ (MOAspectsTarget *)targetInStoreWithClass:(Class)clazz
+                                   selector:(SEL)selector
+                            aspectsSelector:(SEL)aspectsSelector
+                                 methodType:(MOAspectsTargetMethodType)methodType
+{
+    NSString *key = [MOAspectsStore keyWithClass:clazz
+                                        selector:selector
+                                      methodType:methodType];
+    MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
+    if (!target) {
+        target = [[MOAspectsTarget alloc] initWithClass:clazz
+                                              mehodType:methodType
+                                         methodSelector:selector
+                                        aspectsSelector:aspectsSelector];
+        [[MOAspectsStore sharedStore] setTarget:target forKey:key];
+    }
+    return target;
+}
+
+#pragma mark Both interface
+
++ (BOOL)hookMethodForClass:(Class)clazz
+                  selector:(SEL)selector
+                methodType:(MOAspectsTargetMethodType)methodType
+           aspectsPosition:(MOAspectsPosition)aspectsPosition
+                usingBlock:(id)block
+{
+    if (![self isValidClass:clazz selector:selector methodType:methodType]) {
+        return NO;
+    }
+    
+    SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
+    if (![self hasMethodForClass:clazz selector:aspectsSelector methodType:methodType]) {
+        if ([self copyMethodForClass:clazz atSelector:selector toSelector:aspectsSelector methodType:methodType]) {
+            [self overwritingMessageForwardMethodForClass:clazz selector:selector methodType:methodType];
+        } else {
+            MOAspectsErrorLog(@"%@[%@ %@] failed copy method",
+                              methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
+                              NSStringFromClass(clazz),
+                              NSStringFromSelector(selector));
+        }
+    }
+    
+    Class rootClass = [self rootClassForResponodsToClass:clazz
+                                                selector:selector
+                                              methodType:methodType];
+    MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
+                                                  selector:selector
+                                           aspectsSelector:aspectsSelector
+                                                methodType:methodType];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
+    
+    SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
+                                                                     prefix:MOAspectsPrefix];
+    if (![self hasMethodForClass:clazz selector:aspectsForwardInovcationSelector methodType:methodType]) {
+        [self copyMethodForClass:clazz
+                      atSelector:@selector(forwardInvocation:)
+                      toSelector:aspectsForwardInovcationSelector
+                      methodType:methodType];
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [self overwritingMethodForClass:clazz
+                           selector:@selector(forwardInvocation:)
+                         methodType:methodType
+                implementationBlock:^(id object, NSInvocation *invocation) {
+                    Class rootClass = [weakSelf rootClassForResponodsToClass:[object class]
+                                                                    selector:invocation.selector
+                                                                  methodType:methodType];
+                    NSString *key = [MOAspectsStore keyWithClass:rootClass
+                                                        selector:invocation.selector
+                                                      methodType:methodType];
+                    MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
+                    if (target) {
+                        [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
+                    } else {
+                        SEL aspectsForwardInovcationSelector = [MOARuntime
+                                                                selectorWithSelector:@selector(forwardInvocation:)
+                                                                prefix:MOAspectsPrefix];
+                        [invocation setSelector:aspectsForwardInovcationSelector];
+                        [invocation invoke];
+                    }
+                }];
+    
+    return YES;
+}
+
++ (Class)rootClassForResponodsToClass:(Class)clazz selector:(SEL)selector methodType:(MOAspectsTargetMethodType)methodType
+{
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        return [MOARuntime rootClassForClassRespondsToClass:clazz
+                                                   selector:selector];
+    } else {
+        return [MOARuntime rootClassForInstanceRespondsToClass:clazz
+                                                      selector:selector];
+    }
+}
+
++ (BOOL)addMethodForClass:(Class)clazz
+                 selector:(SEL)selector
+               methodType:(MOAspectsTargetMethodType)methodType
+                    block:(id)block
+{
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        return [MOARuntime addClassMethodForClass:clazz
+                                         selector:selector
+                              implementationBlock:block];
+    } else {
+        return [MOARuntime addInstanceMethodForClass:clazz
+                                            selector:selector
+                                 implementationBlock:block];
+    }
+}
+
++ (BOOL)hasMethodForClass:(Class)clazz selector:(SEL)selector methodType:(MOAspectsTargetMethodType)methodType
+{
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        return [MOARuntime hasClassMethodForClass:clazz selector:selector];
+    } else {
+        return [MOARuntime hasInstanceMethodForClass:clazz selector:selector];
+    }
+}
+
++ (BOOL)copyMethodForClass:(Class)clazz
+                atSelector:(SEL)selector
+                toSelector:(SEL)copySelector
+                methodType:(MOAspectsTargetMethodType)methodType
+{
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        return [MOARuntime copyClassMethodForClass:clazz atSelector:selector toSelector:copySelector];
+    } else {
+        return [MOARuntime copyInstanceMethodForClass:clazz atSelector:selector toSelector:copySelector];
+    }
+}
+
++ (void)overwritingMethodForClass:(Class)clazz
+                         selector:(SEL)selector
+                       methodType:(MOAspectsTargetMethodType)methodType
+              implementationBlock:(id)implementationBlock
+{
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        [MOARuntime overwritingClassMethodForClass:clazz selector:selector implementationBlock:implementationBlock];
+    } else {
+        [MOARuntime overwritingInstanceMethodForClass:clazz selector:selector implementationBlock:implementationBlock];
+    }
+}
+
++ (void)overwritingMessageForwardMethodForClass:(Class)clazz
+                                       selector:(SEL)selector
+                                     methodType:(MOAspectsTargetMethodType)methodType
+{
+    if (methodType == MOAspectsTargetMethodTypeClass) {
+        return [MOARuntime overwritingMessageForwardClassMethodForClass:clazz selector:selector];
+    } else {
+        return [MOARuntime overwritingMessageForwardInstanceMethodForClass:clazz selector:selector];
     }
 }
 

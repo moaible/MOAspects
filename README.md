@@ -1,4 +1,4 @@
-# MOAspects v0.1.0
+# MOAspects v0.1.3
 
 MOAspects is AOP library for iOS.
 
@@ -15,7 +15,7 @@ pod 'MOAspects'
 ### MOAspect.h
 
 ```objc
-// hook instance method 
+// hook instance method
 + (BOOL)hookInstanceMethodForClass:(Class)clazz
                           selector:(SEL)selector
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
@@ -39,7 +39,7 @@ pod 'MOAspects'
                         usingBlock:^(id class, int intVar){
                             NSLog(@"hooked %d number!", intVar);
                         }];
-                          
+
 [NSNumber numberWithInt:10]; // -> hooked 10 number!
 ```
 
@@ -52,7 +52,7 @@ pod 'MOAspects'
                            usingBlock:^(NSString *string){
                                NSLog(@"hooked %@!", string);
                            }];
-                       
+
 [@"abcde" length]; // -> hooked abcde!
 ```
 
