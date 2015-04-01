@@ -268,6 +268,7 @@
 
 #pragma makr - Child class test case
 
+// FIXME: Valid at running code
 - (void)testChildClassMethod
 {
     NSString *string;
@@ -307,6 +308,7 @@
     XCTAssertNil(hookedString);
 }
 
+// FIXME: Valid at running code
 - (void)testChildInstanceMethod
 {
     MOAspectsTestChildObject *object = [[MOAspectsTestChildObject alloc] init];
