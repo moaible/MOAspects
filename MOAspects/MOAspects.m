@@ -200,10 +200,14 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         return NO;
     }
     
+    Class rootClass = [self rootClassForResponodsToClass:clazz
+                                                selector:selector
+                                              methodType:methodType];
+    
     SEL aspectsSelector = [MOARuntime selectorWithSelector:selector prefix:MOAspectsPrefix];
-    if (![self hasMethodForClass:clazz selector:aspectsSelector methodType:methodType]) {
-        if ([self copyMethodForClass:clazz atSelector:selector toSelector:aspectsSelector methodType:methodType]) {
-            [self overwritingMessageForwardMethodForClass:clazz selector:selector methodType:methodType];
+    if (![self hasMethodForClass:rootClass selector:aspectsSelector methodType:methodType]) {
+        if ([self copyMethodForClass:rootClass atSelector:selector toSelector:aspectsSelector methodType:methodType]) {
+            [self overwritingMessageForwardMethodForClass:rootClass selector:selector methodType:methodType];
         } else {
             MOAspectsErrorLog(@"%@[%@ %@] failed copy method",
                               methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
@@ -212,9 +216,6 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         }
     }
     
-    Class rootClass = [self rootClassForResponodsToClass:clazz
-                                                selector:selector
-                                              methodType:methodType];
     MOAspectsTarget *target = [self targetInStoreWithClass:rootClass
                                                   selector:selector
                                            aspectsSelector:aspectsSelector
@@ -223,15 +224,15 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     SEL aspectsForwardInovcationSelector = [MOARuntime selectorWithSelector:@selector(forwardInvocation:)
                                                                      prefix:MOAspectsPrefix];
-    if (![self hasMethodForClass:clazz selector:aspectsForwardInovcationSelector methodType:methodType]) {
-        [self copyMethodForClass:clazz
+    if (![self hasMethodForClass:rootClass selector:aspectsForwardInovcationSelector methodType:methodType]) {
+        [self copyMethodForClass:rootClass
                       atSelector:@selector(forwardInvocation:)
                       toSelector:aspectsForwardInovcationSelector
                       methodType:methodType];
     }
     
     __weak typeof(self) weakSelf = self;
-    [self overwritingMethodForClass:clazz
+    [self overwritingMethodForClass:rootClass
                            selector:@selector(forwardInvocation:)
                          methodType:methodType
                 implementationBlock:^(id object, NSInvocation *invocation) {
