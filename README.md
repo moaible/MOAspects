@@ -1,4 +1,4 @@
-# MOAspects v0.1.3
+# MOAspects v0.1.4
 
 MOAspects is AOP library for iOS.
 
