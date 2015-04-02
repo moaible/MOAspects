@@ -20,8 +20,6 @@ typedef NS_ENUM(NSInteger, MOAspectsTargetMethodType)
 
 @property (nonatomic, readonly) SEL selector;
 
-@property (nonatomic, readonly) SEL aspectsSelector;
-
 @property (nonatomic, readonly) MOAspectsTargetMethodType methodType;
 
 @property (nonatomic) NSMutableArray *beforeSelectors; // NSValue array
@@ -30,8 +28,7 @@ typedef NS_ENUM(NSInteger, MOAspectsTargetMethodType)
 
 - (instancetype)initWithClass:(Class)clazz
                     mehodType:(MOAspectsTargetMethodType)methodType
-               methodSelector:(SEL)selector
-              aspectsSelector:(SEL)aspectsSelector;
+               methodSelector:(SEL)selector;
 
 - (void)addBeforeSelector:(SEL)selector forClass:(Class)clazz;
 

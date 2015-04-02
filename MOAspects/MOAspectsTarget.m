@@ -25,18 +25,15 @@
 - (instancetype)initWithClass:(Class)clazz
                     mehodType:(MOAspectsTargetMethodType)methodType
                methodSelector:(SEL)selector
-              aspectsSelector:(SEL)aspectsSelector
 
 {
     NSParameterAssert(clazz);
     NSParameterAssert(selector);
-    NSParameterAssert(aspectsSelector);
     
     self = [super init];
     if (self) {
         _class = clazz;
         _selector = selector;
-        _aspectsSelector = aspectsSelector;
         _methodType = methodType;
     }
     return self;
@@ -88,7 +85,5 @@
 {
     return NSClassFromString(self.selectorClassInfo[NSStringFromSelector(selector)]);
 }
-
-#pragma mark - Private
 
 @end
