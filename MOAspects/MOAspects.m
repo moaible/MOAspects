@@ -55,9 +55,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         return NO;
     }
     
-    if (![self putMethodForClass:[self rootClassForResponodsToClass:clazz
-                                                           selector:@selector(forwardInvocation:)
-                                                         methodType:methodType]
+    Class rootResponderClassForForwardInvocation = [self rootClassForResponodsToClass:clazz
+                                                                             selector:@selector(forwardInvocation:)
+                                                                           methodType:methodType];
+    
+    if (![self putMethodForClass:rootResponderClassForForwardInvocation
                         selector:@selector(forwardInvocation:)
                       methodTyoe:methodType]) {
         return NO;
@@ -77,7 +79,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
     
     __weak typeof(self) weakSelf = self;
-    [self overwritingMethodForClass:rootResponderClass
+    [self overwritingMethodForClass:rootResponderClassForForwardInvocation
                            selector:@selector(forwardInvocation:)
                          methodType:methodType
                 implementationBlock:^(id object, NSInvocation *invocation) {
