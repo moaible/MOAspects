@@ -310,23 +310,6 @@
     XCTAssertTrue([MOARuntimeTestObject twoValue] == 2);
 }
 
-- (void)testOverwritingMsgForwardClassMethod
-{
-    [MOARuntimeTestObject forwardTargetMethod];
-    [MOARuntime overwritingMessageForwardClassMethodForClass:[MOARuntimeTestObject class]
-                                                    selector:@selector(forwardTargetMethod)];
-    XCTAssertThrows([MOARuntimeTestObject forwardTargetMethod]);
-}
-
-- (void)testOverwritingMsgForwardInstanceMethod
-{
-    MOARuntimeTestObject *object = [[MOARuntimeTestObject alloc] init];
-    [object forwardTargetMethod];
-    [MOARuntime overwritingMessageForwardInstanceMethodForClass:[MOARuntimeTestObject class]
-                                                       selector:@selector(forwardTargetMethod)];
-    XCTAssertThrows([object forwardTargetMethod]);
-}
-
 - (void)testAddInstanceMethod
 {
     SEL addedMethodSelector = NSSelectorFromString(@"moa_test_method_string");
