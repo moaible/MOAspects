@@ -91,6 +91,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                     if (target) {
                         [weakSelf invokeWithTarget:target toObject:object invocation:invocation];
                     } else {
+                        // invoke original "forwardInvocation:"
                         SEL aspectsForwardInovcationSelector = [MOARuntime
                                                                 selectorWithSelector:@selector(forwardInvocation:)
                                                                 prefix:MOAspectsPrefix];
@@ -260,11 +261,9 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 + (Class)rootClassForResponodsToClass:(Class)clazz selector:(SEL)selector methodType:(MOAspectsTargetMethodType)methodType
 {
     if (methodType == MOAspectsTargetMethodTypeClass) {
-        return [MOARuntime rootClassForClassRespondsToClass:clazz
-                                                   selector:selector];
+        return [MOARuntime rootClassForClassRespondsToClass:clazz selector:selector];
     } else {
-        return [MOARuntime rootClassForInstanceRespondsToClass:clazz
-                                                      selector:selector];
+        return [MOARuntime rootClassForInstanceRespondsToClass:clazz selector:selector];
     }
 }
 
@@ -274,13 +273,9 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                     block:(id)block
 {
     if (methodType == MOAspectsTargetMethodTypeClass) {
-        return [MOARuntime addClassMethodForClass:clazz
-                                         selector:selector
-                              implementationBlock:block];
+        return [MOARuntime addClassMethodForClass:clazz selector:selector implementationBlock:block];
     } else {
-        return [MOARuntime addInstanceMethodForClass:clazz
-                                            selector:selector
-                                 implementationBlock:block];
+        return [MOARuntime addInstanceMethodForClass:clazz selector:selector implementationBlock:block];
     }
 }
 
