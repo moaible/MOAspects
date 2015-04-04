@@ -69,6 +69,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                          selector:selector
                                                        methodType:methodType];
     
+    if ([self isSwiftClass:rootResponderClass]) {
+        MOAspectsErrorLog(@"Not supported natural Swift methods");
+        return NO;
+    }
+    
     if ([self putMethodForClass:rootResponderClass selector:selector methodTyoe:methodType]) {
         [self overwritingMessageForwardMethodForClass:rootResponderClass selector:selector methodType:methodType];
     } else {
@@ -76,7 +81,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     }
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootResponderClass selector:selector methodType:methodType];
-    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block ?: (id)^{
+        MOAspectsErrorLog(@"%@[%@ %@] block parameter is nil",
+                          methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
+    }];
     
     __weak typeof(self) weakSelf = self;
     [self overwritingMethodForClass:rootResponderClassForForwardInvocation
@@ -256,6 +266,11 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         [[MOAspectsStore sharedStore] setTarget:target forKey:key];
     }
     return target;
+}
+
++ (BOOL)isSwiftClass:(Class)clazz
+{
+    return [NSStringFromClass(clazz) componentsSeparatedByString:@"."].count > 1;
 }
 
 #pragma mark Both interface
