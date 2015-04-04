@@ -81,7 +81,12 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     }
     
     MOAspectsTarget *target = [self targetInStoreWithClass:rootResponderClass selector:selector methodType:methodType];
-    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block];
+    [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block ?: (id)^{
+        MOAspectsErrorLog(@"%@[%@ %@] block parameter is nil",
+                          methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
+                          NSStringFromClass(clazz),
+                          NSStringFromSelector(selector));
+    }];
     
     __weak typeof(self) weakSelf = self;
     [self overwritingMethodForClass:rootResponderClassForForwardInvocation
