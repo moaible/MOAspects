@@ -70,8 +70,8 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                        methodType:methodType];
     
     if ([self isSwiftClass:rootResponderClass]) {
-        MOAspectsErrorLog(@"Not supported natural Swift methods");
-        return NO;
+        MOAspectsErrorLog(@"Not supported natural Swift methods.\n"
+                          @"This has the possibility of not working.");
     }
     
     if ([self putMethodForClass:rootResponderClass selector:selector methodTyoe:methodType]) {

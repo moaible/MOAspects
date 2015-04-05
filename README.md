@@ -1,4 +1,4 @@
-# MOAspects v0.2.1
+# MOAspects v0.2.2
 
 MOAspects is AOP library for iOS.
 
@@ -60,4 +60,4 @@ pod 'MOAspects'
 
 |**32bit**|**64bit**|**Can Hook<br>Method Type**|**Class<br>Hierarchy Hook**|**Hook<br>Return Value**|**Natural<br>Swift Method**|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| ⚪︎ | ⚪︎ | Instance / Class | Supported | Not supported | Not supported |
+| ○ | ○ | Instance / Class | Supported | Not supported | Not supported |
