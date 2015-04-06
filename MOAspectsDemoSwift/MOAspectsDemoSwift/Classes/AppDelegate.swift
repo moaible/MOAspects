@@ -20,8 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Load
     
     override class func load() {
-        MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidAppear:", aspectsPosition:.Before, usingBlock: nil)
-        MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"greeding:", aspectsPosition:.Before, usingBlock: nil)
+        MOAspects.hookInstanceMethod(clazz:ViewController.self, selector:"viewDidAppear:", position:.Before) {
+            NSLog("ViewController:\($0) & \($1)")
+        }
     }
     
     // MARK: Application life cycle
