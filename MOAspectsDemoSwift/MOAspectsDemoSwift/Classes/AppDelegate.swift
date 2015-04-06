@@ -3,7 +3,7 @@
 //  MOAspectsDemoSwift
 //
 //  Created by HiromiMotodera on 2015/04/04.
-//  Copyright (c) 2015年 HiromiMotodera. All rights reserved.
+//  Copyright (c) 2015年 MOAI. All rights reserved.
 //
 
 import UIKit
@@ -20,8 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Load
     
     override class func load() {
-        MOAspects.hookInstanceMethod(clazz:ViewController.self, selector:"viewDidAppear:", position:.Before) {
+        MOAspects.hookInstanceMethod(clazz:NSClassFromString("MOAspectsDemoSwift.ViewController"), selector:"viewDidAppear:", position:.Before) {
             NSLog("ViewController:\($0) & \($1)")
+        }
+        MOAspects.hookClassMethod(clazz:Greeder.self, selector:"greeding:", position:.Before) {
+            NSLog("Greeder:\($0) & \($1)")
         }
     }
     
