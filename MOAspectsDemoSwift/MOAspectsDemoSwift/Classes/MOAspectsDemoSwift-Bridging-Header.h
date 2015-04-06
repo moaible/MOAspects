@@ -6,4 +6,4 @@
 //  Copyright (c) 2015年 HiromiMotodera. All rights reserved.
 //
 
-#import "MOAspects.h"
+#import "MOAspects+Swift.h"
