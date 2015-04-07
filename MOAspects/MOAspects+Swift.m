@@ -13,6 +13,14 @@
 + (BOOL)moa_hookInstanceMethodForClass:(Class)clazz
                               selector:(SEL)selector
                        aspectsPosition:(MOAspectsPosition)aspectsPosition
+                 usingNoParameterBlock:(MOAspectsNoParameterBlock)block
+{
+    return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:aspectsPosition usingBlock:(id)block];;
+}
+
++ (BOOL)moa_hookInstanceMethodForClass:(Class)clazz
+                              selector:(SEL)selector
+                       aspectsPosition:(MOAspectsPosition)aspectsPosition
                   usingParameterBlock0:(MOAspectsParameterBlock0)block
 {
     return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:aspectsPosition usingBlock:(id)block];
@@ -88,6 +96,14 @@
                   usingParameterBlock9:(MOAspectsParameterBlock9)block
 {
     return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:aspectsPosition usingBlock:(id)block];
+}
+
++ (BOOL)moa_hookClassMethodForClass:(Class)clazz
+                           selector:(SEL)selector
+                    aspectsPosition:(MOAspectsPosition)aspectsPosition
+              usingNoParameterBlock:(MOAspectsNoParameterBlock)block
+{
+    return [self hookClassMethodForClass:clazz selector:selector aspectsPosition:aspectsPosition usingBlock:(id)block];
 }
 
 + (BOOL)moa_hookClassMethodForClass:(Class)clazz

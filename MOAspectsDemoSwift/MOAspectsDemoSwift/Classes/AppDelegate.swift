@@ -20,11 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Load
     
     override class func load() {
-        MOAspects.hookInstanceMethod(clazz:NSClassFromString("MOAspectsDemoSwift.ViewController"), selector:"viewDidAppear:", position:.Before) {
-            NSLog("ViewController:\($0) & \($1)")
-        }
-        MOAspects.hookClassMethod(clazz:Greeder.self, selector:"greeding:", position:.Before) {
-            NSLog("Greeder:\($0) & \($1)")
+        MOAspects.hookInstanceMethod(clazz:ViewController.self, selector:"viewDidAppear:", position:.Before) {
+            NSLog("view controller is\($0)")
         }
     }
     

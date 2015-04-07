@@ -12,6 +12,15 @@ extension MOAspects {
         #clazz: AnyClass,
         selector: Selector,
         position: MOAspectsPosition,
+        block:MOAspectsNoParameterBlock)->Bool
+    {
+        return moa_hookClassMethodForClass(clazz, selector: selector, aspectsPosition: position, usingNoParameterBlock: block)
+    }
+    
+    public class func hookClassMethod(
+        #clazz: AnyClass,
+        selector: Selector,
+        position: MOAspectsPosition,
         block:MOAspectsParameterBlock0)->Bool
     {
         return moa_hookClassMethodForClass(clazz, selector: selector, aspectsPosition: position, usingParameterBlock0: block)
@@ -96,6 +105,15 @@ extension MOAspects {
         block:MOAspectsParameterBlock9)->Bool
     {
         return moa_hookClassMethodForClass(clazz, selector: selector, aspectsPosition: position, usingParameterBlock9: block)
+    }
+    
+    public class func hookInstanceMethod(
+        #clazz: AnyClass,
+        selector: Selector,
+        position: MOAspectsPosition,
+        block:MOAspectsNoParameterBlock)->Bool
+    {
+        return moa_hookInstanceMethodForClass(clazz, selector: selector, aspectsPosition: position, usingNoParameterBlock: block)
     }
     
     public class func hookInstanceMethod(

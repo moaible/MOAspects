@@ -8,6 +8,7 @@
 
 #import "MOAspects.h"
 
+typedef void (^MOAspectsNoParameterBlock) (void);
 typedef void (^MOAspectsParameterBlock0) (id t);
 typedef void (^MOAspectsParameterBlock1) (id t, void* p1);
 typedef void (^MOAspectsParameterBlock2) (id t, void* p1, void* p2);
@@ -21,6 +22,10 @@ typedef void (^MOAspectsParameterBlock9) (id t, void* p1, void* p2, void* p3, vo
 
 @interface MOAspects (Swift)
 
++ (BOOL)moa_hookInstanceMethodForClass:(Class)clazz
+                              selector:(SEL)selector
+                       aspectsPosition:(MOAspectsPosition)aspectsPosition
+                 usingNoParameterBlock:(MOAspectsNoParameterBlock)block;
 + (BOOL)moa_hookInstanceMethodForClass:(Class)clazz
                               selector:(SEL)selector
                        aspectsPosition:(MOAspectsPosition)aspectsPosition
@@ -62,6 +67,10 @@ typedef void (^MOAspectsParameterBlock9) (id t, void* p1, void* p2, void* p3, vo
                        aspectsPosition:(MOAspectsPosition)aspectsPosition
                   usingParameterBlock9:(MOAspectsParameterBlock9)block;
 
++ (BOOL)moa_hookClassMethodForClass:(Class)clazz
+                           selector:(SEL)selector
+                    aspectsPosition:(MOAspectsPosition)aspectsPosition
+              usingNoParameterBlock:(MOAspectsNoParameterBlock)block;
 + (BOOL)moa_hookClassMethodForClass:(Class)clazz
                            selector:(SEL)selector
                     aspectsPosition:(MOAspectsPosition)aspectsPosition
