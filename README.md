@@ -91,7 +91,7 @@ UIScreen.mainScreen() // -> hooked screen!
 #### Hook instance method example
 
 ```swift
-MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad", position:.Before) {
+MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad", position:.After) {
     NSLog("view did loaded!")
 }
 
