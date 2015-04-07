@@ -48,7 +48,9 @@ pod 'MOAspects'
 
 ## How to use
 
-### Hook class method example
+### Objective-C
+
+#### Hook class method example
 
 ```objc
 [MOAspects hookClassMethodForClass:[NSNumber class]
@@ -61,7 +63,7 @@ pod 'MOAspects'
 [NSNumber numberWithInt:10]; // -> hooked 10 number!
 ```
 
-### Hook instance method example
+#### Hook instance method example
 
 ```objc
 [MOAspects hookInstanceMethodForClass:[NSString class]
@@ -72,6 +74,28 @@ pod 'MOAspects'
                            }];
 
 [@"abcde" length]; // -> hooked abcde!
+```
+
+### Swift
+
+#### Hook class method example
+
+```swift
+MOAspects.hookClassMethodForClass(UIScreen.self, selector:"mainScreen", position:.Before) {
+    NSLog("hooked screen!")
+}
+
+UIScreen.mainScreen() // -> hooked screen!
+```
+
+#### Hook instance method example
+
+```swift
+MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad", position:.Before) {
+    NSLog("view did loaded!")
+}
+
+// -> view did loaded!
 ```
 
 ## Spec table
