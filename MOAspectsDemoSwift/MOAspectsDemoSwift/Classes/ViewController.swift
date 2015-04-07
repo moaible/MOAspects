@@ -3,7 +3,7 @@
 //  MOAspectsDemoSwift
 //
 //  Created by HiromiMotodera on 2015/04/04.
-//  Copyright (c) 2015年 HiromiMotodera. All rights reserved.
+//  Copyright (c) 2015年 MOAI. All rights reserved.
 //
 
 import UIKit
@@ -19,13 +19,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.greeding("Hello world")
-    }
-    
-    // MARK: Private(Natural swift method)
-    
-    func greeding(greed: String) {
-        NSLog(greed)
+        Greeder.greeding("Hello world")
     }
     
     // MARK: Memory management
@@ -33,6 +27,16 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+class Greeder: NSObject {
+    
+}
+
+extension Greeder {
+    class func greeding(greed: String) {
+        
     }
 }
 

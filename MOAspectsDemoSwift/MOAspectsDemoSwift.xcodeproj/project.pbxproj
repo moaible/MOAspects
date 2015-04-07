@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA89F4F71AD2E42700407DF2 /* MOAspects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA89F4F41AD2E42700407DF2 /* MOAspects.swift */; };
+		FA89F4F81AD2E42700407DF2 /* MOAspects+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = FA89F4F61AD2E42700407DF2 /* MOAspects+Swift.m */; };
 		FAC7A10C1ACFADC600C2CC72 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC7A10B1ACFADC600C2CC72 /* Images.xcassets */; };
 		FAC7A10F1ACFADC600C2CC72 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC7A10D1ACFADC600C2CC72 /* LaunchScreen.xib */; };
 		FAC7A11B1ACFADC600C2CC72 /* MOAspectsDemoSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7A11A1ACFADC600C2CC72 /* MOAspectsDemoSwiftTests.swift */; };
@@ -29,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA89F4F41AD2E42700407DF2 /* MOAspects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOAspects.swift; sourceTree = "<group>"; };
+		FA89F4F51AD2E42700407DF2 /* MOAspects+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MOAspects+Swift.h"; sourceTree = "<group>"; };
+		FA89F4F61AD2E42700407DF2 /* MOAspects+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MOAspects+Swift.m"; sourceTree = "<group>"; };
 		FAC7A0FF1ACFADC600C2CC72 /* MOAspectsDemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOAspectsDemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC7A1031ACFADC600C2CC72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC7A10B1ACFADC600C2CC72 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -133,6 +138,9 @@
 				FAC7A12A1ACFAF0D00C2CC72 /* MOAspectsStore.m */,
 				FAC7A12B1ACFAF0D00C2CC72 /* MOAspectsTarget.h */,
 				FAC7A12C1ACFAF0D00C2CC72 /* MOAspectsTarget.m */,
+				FA89F4F41AD2E42700407DF2 /* MOAspects.swift */,
+				FA89F4F51AD2E42700407DF2 /* MOAspects+Swift.h */,
+				FA89F4F61AD2E42700407DF2 /* MOAspects+Swift.m */,
 			);
 			name = MOAspects;
 			path = ../MOAspects;
@@ -247,6 +255,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA89F4F71AD2E42700407DF2 /* MOAspects.swift in Sources */,
+				FA89F4F81AD2E42700407DF2 /* MOAspects+Swift.m in Sources */,
 				FAC7A1301ACFAF0D00C2CC72 /* MOAspectsTarget.m in Sources */,
 				FAC7A12E1ACFAF0D00C2CC72 /* MOAspects.m in Sources */,
 				FAC7A12F1ACFAF0D00C2CC72 /* MOAspectsStore.m in Sources */,
@@ -440,6 +450,7 @@
 				FAC7A1201ACFADC600C2CC72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAC7A1211ACFADC600C2CC72 /* Build configuration list for PBXNativeTarget "MOAspectsDemoSwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +459,7 @@
 				FAC7A1231ACFADC600C2CC72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
