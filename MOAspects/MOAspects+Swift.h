@@ -9,15 +9,15 @@
 #import "MOAspects.h"
 
 typedef void (^MOAspectsParameterBlock0) (id t);
-typedef void (^MOAspectsParameterBlock1) (id t, id p1);
-typedef void (^MOAspectsParameterBlock2) (id t, id p1, id p2);
-typedef void (^MOAspectsParameterBlock3) (id t, id p1, id p2, id p3);
-typedef void (^MOAspectsParameterBlock4) (id t, id p1, id p2, id p3, id p4);
-typedef void (^MOAspectsParameterBlock5) (id t, id p1, id p2, id p3, id p4, id p5);
-typedef void (^MOAspectsParameterBlock6) (id t, id p1, id p2, id p3, id p4, id p5, id p6);
-typedef void (^MOAspectsParameterBlock7) (id t, id p1, id p2, id p3, id p4, id p5, id p6, id p7);
-typedef void (^MOAspectsParameterBlock8) (id t, id p1, id p2, id p3, id p4, id p5, id p6, id p7, id p8);
-typedef void (^MOAspectsParameterBlock9) (id t, id p1, id p2, id p3, id p4, id p5, id p6, id p7, id p8, id p9);
+typedef void (^MOAspectsParameterBlock1) (id t, void* p1);
+typedef void (^MOAspectsParameterBlock2) (id t, void* p1, void* p2);
+typedef void (^MOAspectsParameterBlock3) (id t, void* p1, void* p2, void* p3);
+typedef void (^MOAspectsParameterBlock4) (id t, void* p1, void* p2, void* p3, void* p4);
+typedef void (^MOAspectsParameterBlock5) (id t, void* p1, void* p2, void* p3, void* p4, void* p5);
+typedef void (^MOAspectsParameterBlock6) (id t, void* p1, void* p2, void* p3, void* p4, void* p5, void* p6);
+typedef void (^MOAspectsParameterBlock7) (id t, void* p1, void* p2, void* p3, void* p4, void* p5, void* p6, void* p7);
+typedef void (^MOAspectsParameterBlock8) (id t, void* p1, void* p2, void* p3, void* p4, void* p5, void* p6, void* p7, void* p8);
+typedef void (^MOAspectsParameterBlock9) (id t, void* p1, void* p2, void* p3, void* p4, void* p5, void* p6, void* p7, void* p8, void* p9);
 
 @interface MOAspects (Swift)
 
