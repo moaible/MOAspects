@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override class func load() {
         MOAspects.hookInstanceMethod(clazz:ViewController.self, selector:"viewDidAppear:", position:.Before) {
-            NSLog("view controller is\($0)")
+            NSLog("view controller")
         }
     }
     
