@@ -71,19 +71,20 @@
 {
     NSValue *selectorValue = [NSValue valueWithPointer:selector];
     [self.beforeSelectors addObject:selectorValue];
-    self.selectorClassInfo[NSStringFromSelector(selector)] = NSStringFromClass(clazz);
+    self.selectorClassInfo[NSStringFromSelector(selector)] = [NSString stringWithCString:object_getClassName(clazz) encoding:NSUTF8StringEncoding];
 }
 
 - (void)addAfterSelector:(SEL)selector forClass:(Class)clazz
 {
     NSValue *selectorValue = [NSValue valueWithPointer:selector];
     [self.afterSelectors addObject:selectorValue];
-    self.selectorClassInfo[NSStringFromSelector(selector)] = NSStringFromClass(clazz);
+    self.selectorClassInfo[NSStringFromSelector(selector)] = [NSString stringWithCString:object_getClassName(clazz) encoding:NSUTF8StringEncoding];
 }
 
 - (Class)classForSelector:(SEL)selector
 {
-    return NSClassFromString(self.selectorClassInfo[NSStringFromSelector(selector)]);
+    NSString *className = self.selectorClassInfo[NSStringFromSelector(selector)];
+    return objc_getClass([className cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 @end
