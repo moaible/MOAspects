@@ -43,7 +43,7 @@ NSString * const MOAspectsStoreKeyFormat = @"%@[%@ %@]";
 {
     return [NSString stringWithFormat:MOAspectsStoreKeyFormat,
             methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-            NSStringFromClass(clazz),
+            [NSString stringWithCString:object_getClassName(clazz) encoding:NSUTF8StringEncoding],
             NSStringFromSelector(selector)];
 }
 

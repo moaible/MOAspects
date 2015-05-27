@@ -122,7 +122,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         if (![self copyMethodForClass:clazz atSelector:selector toSelector:aspectsSelector methodType:methodType]) {
             MOAspectsErrorLog(@"%@[%@ %@] failed copy method",
                               methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                              NSStringFromClass(clazz),
+                              [NSString stringWithCString:object_getClassName(clazz) encoding:NSUTF8StringEncoding],
                               NSStringFromSelector(aspectsSelector));
             return NO;
         }
@@ -191,7 +191,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
         MOAspectsErrorLog(@"%@[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
                           methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                          NSStringFromClass(clazz),
+                          [NSString stringWithCString:object_getClassName(clazz) encoding:NSUTF8StringEncoding],
                           NSStringFromSelector(selector));
         return NO;
     }
@@ -199,7 +199,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     if (![self hasMethodForClass:clazz selector:selector methodType:methodType]) {
         MOAspectsErrorLog(@"%@[%@ %@] unrecognized selector",
                           methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                          NSStringFromClass(clazz),
+                          [NSString stringWithCString:object_getClassName(clazz) encoding:NSUTF8StringEncoding],
                           NSStringFromSelector(selector));
         return NO;
     }
