@@ -84,7 +84,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block ?: (id)^{
         MOAspectsErrorLog(@"%@[%@ %@] block parameter is nil",
                           methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                          NSStringFromClass(clazz),
+                          [MOARuntime stringWithClass:clazz],
                           NSStringFromSelector(selector));
     }];
     
@@ -122,7 +122,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         if (![self copyMethodForClass:clazz atSelector:selector toSelector:aspectsSelector methodType:methodType]) {
             MOAspectsErrorLog(@"%@[%@ %@] failed copy method",
                               methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                              NSStringFromClass(clazz),
+                              [MOARuntime stringWithClass:clazz],
                               NSStringFromSelector(aspectsSelector));
             return NO;
         }
@@ -191,7 +191,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     if ([NSStringFromSelector(selector) hasPrefix:MOAspectsPrefix]) {
         MOAspectsErrorLog(@"%@[%@ %@] can not hook \"__moa_aspects_\" prefix selector",
                           methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                          NSStringFromClass(clazz),
+                          [MOARuntime stringWithClass:clazz],
                           NSStringFromSelector(selector));
         return NO;
     }
@@ -199,7 +199,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     if (![self hasMethodForClass:clazz selector:selector methodType:methodType]) {
         MOAspectsErrorLog(@"%@[%@ %@] unrecognized selector",
                           methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-                          NSStringFromClass(clazz),
+                          [MOARuntime stringWithClass:clazz],
                           NSStringFromSelector(selector));
         return NO;
     }
@@ -270,7 +270,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 
 + (BOOL)isSwiftClass:(Class)clazz
 {
-    return [NSStringFromClass(clazz) componentsSeparatedByString:@"."].count > 1;
+    return [[MOARuntime stringWithClass:clazz] componentsSeparatedByString:@"."].count > 1;
 }
 
 #pragma mark Both interface

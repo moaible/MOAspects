@@ -71,14 +71,14 @@
 {
     NSValue *selectorValue = [NSValue valueWithPointer:selector];
     [self.beforeSelectors addObject:selectorValue];
-    self.selectorClassInfo[NSStringFromSelector(selector)] = NSStringFromClass(clazz);
+    self.selectorClassInfo[NSStringFromSelector(selector)] = [MOARuntime stringWithClass:clazz];
 }
 
 - (void)addAfterSelector:(SEL)selector forClass:(Class)clazz
 {
     NSValue *selectorValue = [NSValue valueWithPointer:selector];
     [self.afterSelectors addObject:selectorValue];
-    self.selectorClassInfo[NSStringFromSelector(selector)] = NSStringFromClass(clazz);
+    self.selectorClassInfo[NSStringFromSelector(selector)] = [MOARuntime stringWithClass:clazz];
 }
 
 - (Class)classForSelector:(SEL)selector

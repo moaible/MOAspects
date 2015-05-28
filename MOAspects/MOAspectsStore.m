@@ -8,6 +8,8 @@
 
 #import "MOAspectsStore.h"
 
+#import "MOARuntime.h"
+
 @interface MOAspectsStore()
 
 @property (nonatomic) NSMutableDictionary *targetStore;
@@ -43,7 +45,7 @@ NSString * const MOAspectsStoreKeyFormat = @"%@[%@ %@]";
 {
     return [NSString stringWithFormat:MOAspectsStoreKeyFormat,
             methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
-            NSStringFromClass(clazz),
+            [MOARuntime stringWithClass:clazz],
             NSStringFromSelector(selector)];
 }
 
