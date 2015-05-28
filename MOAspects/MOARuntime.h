@@ -10,6 +10,10 @@
 
 @interface MOARuntime : NSObject
 
++ (NSString *)stringWithClass:(Class)clazz;
+
++ (Class)classWithString:(NSString *)string;
+
 + (NSArray *)classNames;
 
 + (NSArray *)classNamesForRegexPattern:(NSString *)pattern;

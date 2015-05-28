@@ -70,6 +70,18 @@
 
 @implementation MOARuntimeTestCase
 
+- (void)testStringWithClass
+{
+    NSString *className = [MOARuntime stringWithClass:[MOARuntimeTestObject class]];
+    XCTAssertTrue([className isEqualToString:@"MOARuntimeTestObject"]);
+}
+
+- (void)testClassWithString
+{
+    Class clazz = [MOARuntime classWithString:@"MOARuntimeTestObject"];
+    XCTAssertTrue(clazz == [MOARuntimeTestObject class]);
+}
+
 - (void)testClassNames
 {
     BOOL ret = YES;

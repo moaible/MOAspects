@@ -40,6 +40,17 @@ typedef struct _MOABlock {
 
 #pragma mark - Public
 
++ (NSString *)stringWithClass:(Class)clazz
+{
+    return [NSString stringWithCString:object_getClassName(clazz)
+                              encoding:NSUTF8StringEncoding];
+}
+
++ (Class)classWithString:(NSString *)string
+{
+    return objc_getClass([string cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
 + (NSArray *)classNames
 {
     return [self classNamesForRegexPattern:nil];
