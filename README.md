@@ -8,7 +8,7 @@ MOAspects is AOP library for iOS.
 
 Stable version for Objective-C language.
 
-### 2.0.2
+### 2.0.4
 
 Swift language supported and development version.
 
