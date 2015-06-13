@@ -1,16 +1,14 @@
 PROJECT = MOAspectsDemo/MOAspectsDemo.xcodeproj
-TEST_TARGET = Tests
+SCHEME=MOAspectsDemo
+TEST_SDK=iphonesimulator
+CONFIGURATION_DEBUG=Debug
+DESTINATION="platform=iOS Simulator,name=iPhone 5,OS=8.1"
 
-clean:
-  xcodebuild \
-      -project $(PROJECT) \
-      clean
-
-travistest:
-  xcodebuild \
-      -project $(PROJECT) \
-      -target $(TEST_TARGET) \
-      -sdk iphonesimulator \
-      -configuration Debug \
-      TEST_AFTER_BUILD=YES \
-      TEST_HOST=
+test:
+	xcodebuild \
+		-project $(PROJECT) \
+		-scheme $(SCHEME) \
+		-sdk $(TEST_SDK) \
+		-configuration $(CONFIGURATION_DEBUG) \
+		-destination $(DESTINATION) \
+		clean build test
