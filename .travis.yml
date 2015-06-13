@@ -1,4 +1,4 @@
 language: objective-c
 
 script:
-  - make clean travistest
+  - make test
