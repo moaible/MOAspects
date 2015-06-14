@@ -17,18 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var navigationController: UINavigationController?
     
-    // MARK: Load
+    // MARK: Application life cycle
     
-    override class func load() {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad", position:.Before) {
             (t:AnyObject!)->Void in
             NSLog("t is \(t)")
         }
-    }
-    
-    // MARK: Application life cycle
-    
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.navigationController = UINavigationController(rootViewController:ViewController())
         self.window?.rootViewController = self.navigationController
