@@ -10,7 +10,7 @@ MOAspects is AOP library for iOS.
 
 Stable version for Objective-C language.
 
-### 2.0.4
+### 2.0.5
 
 Swift language supported and development version.
 
@@ -102,6 +102,6 @@ MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad"
 
 ## Spec table
 
-| **32bit** | **64bit** | **Can Hook<br>Method Type** | **Class<br>Hierarchy Hook** | **Hook<br>Return Value** | **Natural<br>Swift Method** | 
+| **32bit** | **64bit** | **Can Hook<br>Method Type** | **Class<br>Hierarchy Hook** | **Hook<br>Return Value** | **Natural<br>Swift Method** |  |
 |:---------:|:---------:|:---------------------------:|:---------------------------:|:------------------------:|:---------------------------:|-:|
-|     ○     |     ○     |      Instance / Class       |          Supported          |      Not supported       |        Not supported        |
+|     ○     |     ○     |      Instance / Class       |          Supported          |      Not supported       |        Not supported        |  |
