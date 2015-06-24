@@ -102,6 +102,6 @@ MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad"
 
 ## Spec table
 
-| **32bit** | **64bit** | **Can Hook<br>Method Type** | **Class<br>Hierarchy Hook** | **Hook<br>Return Value** | **Natural<br>Swift Method** |  |
-|:---------:|:---------:|:---------------------------:|:---------------------------:|:------------------------:|:---------------------------:|-:|
-|     ○     |     ○     |      Instance / Class       |          Supported          |      Not supported       |        Not supported        |  |
+| **32bit** | **64bit** | **Can Hook<br>Method Type** | **Class<br>Hierarchy Hook** | **Hook<br>Return Value** | **Natural<br>Swift Method** |
+|:---------:|:---------:|:---------------------------:|:---------------------------:|:------------------------:|:---------------------------:|
+|     ○     |     ○     |      Instance / Class       |          Supported          |      Not supported       |        Not supported        |
