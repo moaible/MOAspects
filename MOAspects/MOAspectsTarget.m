@@ -3,7 +3,7 @@
 //  MOAspects
 //
 //  Created by Hiromi Motodera on 2015/03/15.
-//  Copyright (c) 2015年 MOAI. All rights reserved.
+//  Copyright (c) 2015 MOAI. All rights reserved
 //
 
 #import "MOAspectsTarget.h"
@@ -25,6 +25,7 @@
 - (instancetype)initWithClass:(Class)clazz
                     mehodType:(MOAspectsTargetMethodType)methodType
                methodSelector:(SEL)selector
+                    hookRange:(MOAspectsHookRange)hookRange
 
 {
     NSParameterAssert(clazz);
@@ -35,6 +36,7 @@
         _class = clazz;
         _selector = selector;
         _methodType = methodType;
+        _hookRange = hookRange;
     }
     return self;
 }
