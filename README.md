@@ -35,16 +35,31 @@ pod 'MOAspects'
 ### MOAspect.h
 
 ```objc
-// hook instance method
+
+#pragma mark - Hook instance method
+
 + (BOOL)hookInstanceMethodForClass:(Class)clazz
                           selector:(SEL)selector
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block;
 
-// hook class method
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                         hookRange:(MOAspectsHookRange)hookRange
+                        usingBlock:(id)block;
+
+#pragma mark - Hook class method
+
 + (BOOL)hookClassMethodForClass:(Class)clazz
                        selector:(SEL)selector
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
+                     usingBlock:(id)block;
+
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                      hookRange:(MOAspectsHookRange)hookRange
                      usingBlock:(id)block;
 ```
 
