@@ -22,6 +22,10 @@ NS_INLINE MOAspectsHookRange MOAspectsMakeHookRange(NSUInteger location, NSUInte
     return range;
 }
 
+NS_INLINE BOOL MOAspectsEqualHookRanges(MOAspectsHookRange range1, MOAspectsHookRange range2) {
+    return (range1.location == range2.location && range1.length == range2.length);
+}
+
 /* The "All" range -- equivalent to MOAspectsMakeHookRange(0, INT_MAX). */
 
 FOUNDATION_EXTERN const MOAspectsHookRange MOAspectsHookRangeAll;

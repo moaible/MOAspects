@@ -21,6 +21,7 @@
 		C9C11FC21AC65BFE00EB6F61 /* MOAspectsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C11FBF1AC65BFE00EB6F61 /* MOAspectsAppDelegate.m */; };
 		C9C11FC31AC65BFE00EB6F61 /* MOAspectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */; };
 		FA0965B01B4800C0004A9F6F /* MOAspectsHookRange.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0965AF1B4800C0004A9F6F /* MOAspectsHookRange.m */; };
+		FA0965B51B4815B5004A9F6F /* MOAspectsHookRangeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0965B41B4815B5004A9F6F /* MOAspectsHookRangeTestCase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsViewController.m; sourceTree = "<group>"; };
 		FA0965AE1B4800C0004A9F6F /* MOAspectsHookRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsHookRange.h; sourceTree = "<group>"; };
 		FA0965AF1B4800C0004A9F6F /* MOAspectsHookRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsHookRange.m; sourceTree = "<group>"; };
+		FA0965B41B4815B5004A9F6F /* MOAspectsHookRangeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsHookRangeTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				C946E3981AC5B69D00551F93 /* MOARuntimeTestCase.m */,
 				C946E3991AC5B69D00551F93 /* MOAspectsStoreTestCase.m */,
 				C946E39A1AC5B69D00551F93 /* MOAspectsTestCase.m */,
+				FA0965B41B4815B5004A9F6F /* MOAspectsHookRangeTestCase.m */,
 			);
 			name = MOAspectsTest;
 			path = ../../MOAspectsTest;
@@ -293,6 +296,7 @@
 				C946E39B1AC5B69D00551F93 /* MOARuntimeTestCase.m in Sources */,
 				C946E39D1AC5B69D00551F93 /* MOAspectsTestCase.m in Sources */,
 				C946E39C1AC5B69D00551F93 /* MOAspectsStoreTestCase.m in Sources */,
+				FA0965B51B4815B5004A9F6F /* MOAspectsHookRangeTestCase.m in Sources */,
 				C946E3811AC5A60F00551F93 /* MOAspectsDemoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
