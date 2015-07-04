@@ -16,18 +16,30 @@
 
 @implementation MOAspectsHookRangeTestCase
 
+- (void)testMOAspectsEqualHookRanges
+{
+    XCTAssertTrue(MOAspectsEqualHookRanges(MOAspectsMakeHookRange(0, 0),
+                                           MOAspectsMakeHookRange(0, 0)));
+    XCTAssertTrue(MOAspectsEqualHookRanges(MOAspectsMakeHookRange(1, 1),
+                                           MOAspectsMakeHookRange(1, 1)));
+    XCTAssertFalse(MOAspectsEqualHookRanges(MOAspectsMakeHookRange(1, 1),
+                                            MOAspectsMakeHookRange(0, 0)));
+}
+
 - (void)testMOAspectsHookRangeSingle
 {
     XCTAssertTrue(MOAspectsHookRangeSingle.location == 0);
     XCTAssertTrue(MOAspectsHookRangeSingle.length == 0);
-    XCTAssertTrue(MOAspectsEqualHookRanges(MOAspectsHookRangeSingle, MOAspectsMakeHookRange(0, 0)));
+    XCTAssertTrue(MOAspectsEqualHookRanges(MOAspectsHookRangeSingle,
+                                           MOAspectsMakeHookRange(0, 0)));
 }
 
 - (void)testMOAspectsHookRangeAll
 {
     XCTAssertTrue(MOAspectsHookRangeAll.location == 0);
     XCTAssertTrue(MOAspectsHookRangeAll.length == INT_MAX);
-    XCTAssertTrue(MOAspectsEqualHookRanges(MOAspectsHookRangeAll, MOAspectsMakeHookRange(0, INT_MAX)));
+    XCTAssertTrue(MOAspectsEqualHookRanges(MOAspectsHookRangeAll,
+                                           MOAspectsMakeHookRange(0, INT_MAX)));
 }
 
 @end

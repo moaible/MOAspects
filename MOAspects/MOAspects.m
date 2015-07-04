@@ -264,7 +264,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                             targetObject:object];
     for (NSValue *value in target.beforeSelectors) {
         SEL selector = [value pointerValue];
-        if ([object class] == [target classForSelector:selector]) {
+        if ([self shouldInvokeTarget:target toObject:object selector:selector]) {
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
@@ -275,7 +275,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     for (NSValue *value in target.afterSelectors) {
         SEL selector = [value pointerValue];
-        if ([object class] == [target classForSelector:selector]) {
+        if ([self shouldInvokeTarget:target toObject:object selector:selector]) {
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
@@ -302,6 +302,21 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 + (BOOL)isSwiftClass:(Class)clazz
 {
     return [[MOARuntime stringWithClass:clazz] componentsSeparatedByString:@"."].count > 1;
+}
+
++ (BOOL)shouldInvokeTarget:(MOAspectsTarget *)target
+                  toObject:(id)object
+                  selector:(SEL)selector
+{
+    if (MOAspectsEqualHookRanges(target.hookRange, MOAspectsHookRangeSingle)) {
+        return [object class] == [target classForSelector:selector];
+    } else if (MOAspectsEqualHookRanges(target.hookRange, MOAspectsHookRangeAll)) {
+        return YES;
+    } else {
+        NSAssert(NO, @"Not implemented custom hook range");
+    }
+    
+    return NO;
 }
 
 #pragma mark Both interface
