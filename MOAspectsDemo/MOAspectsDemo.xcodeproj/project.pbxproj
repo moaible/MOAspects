@@ -20,6 +20,7 @@
 		C946E39D1AC5B69D00551F93 /* MOAspectsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C946E39A1AC5B69D00551F93 /* MOAspectsTestCase.m */; };
 		C9C11FC21AC65BFE00EB6F61 /* MOAspectsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C11FBF1AC65BFE00EB6F61 /* MOAspectsAppDelegate.m */; };
 		C9C11FC31AC65BFE00EB6F61 /* MOAspectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */; };
+		FA0965B01B4800C0004A9F6F /* MOAspectsHookRange.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0965AF1B4800C0004A9F6F /* MOAspectsHookRange.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		C9C11FBF1AC65BFE00EB6F61 /* MOAspectsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsAppDelegate.m; sourceTree = "<group>"; };
 		C9C11FC01AC65BFE00EB6F61 /* MOAspectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsViewController.h; sourceTree = "<group>"; };
 		C9C11FC11AC65BFE00EB6F61 /* MOAspectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsViewController.m; sourceTree = "<group>"; };
+		FA0965AE1B4800C0004A9F6F /* MOAspectsHookRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOAspectsHookRange.h; sourceTree = "<group>"; };
+		FA0965AF1B4800C0004A9F6F /* MOAspectsHookRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOAspectsHookRange.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +147,8 @@
 				C946E3901AC5B58700551F93 /* MOAspectsStore.m */,
 				C946E3911AC5B58700551F93 /* MOAspectsTarget.h */,
 				C946E3921AC5B58700551F93 /* MOAspectsTarget.m */,
+				FA0965AE1B4800C0004A9F6F /* MOAspectsHookRange.h */,
+				FA0965AF1B4800C0004A9F6F /* MOAspectsHookRange.m */,
 			);
 			name = MOAspects;
 			path = ../MOAspects;
@@ -274,6 +279,7 @@
 				C946E3941AC5B58700551F93 /* MOAspects.m in Sources */,
 				C9C11FC21AC65BFE00EB6F61 /* MOAspectsAppDelegate.m in Sources */,
 				C946E3671AC5A60F00551F93 /* main.m in Sources */,
+				FA0965B01B4800C0004A9F6F /* MOAspectsHookRange.m in Sources */,
 				C9C11FC31AC65BFE00EB6F61 /* MOAspectsViewController.m in Sources */,
 				C946E3961AC5B58700551F93 /* MOAspectsTarget.m in Sources */,
 				C946E3951AC5B58700551F93 /* MOAspectsStore.m in Sources */,
