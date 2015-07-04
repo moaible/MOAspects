@@ -14,6 +14,12 @@ typedef NS_ENUM(NSInteger, MOAspectsPosition)
     MOAspectsPositionAfter
 };
 
+typedef NS_ENUM(NSInteger, MOAspectsHookRange)
+{
+    MOAspectsHookRangeAll = -1,
+    MOAspectsHookRangeTargetOnly = -2
+};
+
 @interface MOAspects : NSObject
 
 + (BOOL)hookInstanceMethodForClass:(Class)clazz
@@ -21,9 +27,21 @@ typedef NS_ENUM(NSInteger, MOAspectsPosition)
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block;
 
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                         hookLevel:(MOAspectsHookRange)hookLevel
+                        usingBlock:(id)block;
+
 + (BOOL)hookClassMethodForClass:(Class)clazz
                        selector:(SEL)selector
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
+                     usingBlock:(id)block;
+
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                      hookLevel:(MOAspectsHookRange)hookLevel
                      usingBlock:(id)block;
 
 @end
