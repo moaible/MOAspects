@@ -3,7 +3,7 @@
 //  MOAspects
 //
 //  Created by Hiromi Motodera on 2015/03/15.
-//  Copyright (c) 2015年 MOAI. All rights reserved.
+//  Copyright (c) 2015 MOAI. All rights reserved
 //
 
 #import "MOAspects.h"
@@ -24,10 +24,24 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block
 {
+    return [self hookInstanceMethodForClass:clazz
+                                   selector:selector
+                            aspectsPosition:aspectsPosition
+                                  hookRange:MOAspectsHookRangeSingle
+                                 usingBlock:block];
+}
+
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                         hookRange:(MOAspectsHookRange)hookRange
+                        usingBlock:(id)block
+{
     return [self hookMethodForClass:clazz
                            selector:selector
                          methodType:MOAspectsTargetMethodTypeInstance
                     aspectsPosition:aspectsPosition
+                          hookRange:hookRange
                          usingBlock:block];
 }
 
@@ -36,10 +50,24 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
                      usingBlock:(id)block
 {
+    return [self hookClassMethodForClass:clazz
+                                selector:selector
+                         aspectsPosition:aspectsPosition
+                               hookRange:MOAspectsHookRangeSingle
+                              usingBlock:block];
+}
+
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                      hookRange:(MOAspectsHookRange)hookRange
+                     usingBlock:(id)block
+{
     return [self hookMethodForClass:clazz
                            selector:selector
                          methodType:MOAspectsTargetMethodTypeClass
                     aspectsPosition:aspectsPosition
+                          hookRange:hookRange
                          usingBlock:block];
 }
 
@@ -49,6 +77,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                   selector:(SEL)selector
                 methodType:(MOAspectsTargetMethodType)methodType
            aspectsPosition:(MOAspectsPosition)aspectsPosition
+                 hookRange:(MOAspectsHookRange)hookRange
                 usingBlock:(id)block
 {
     if (![self isValidClass:clazz selector:selector methodType:methodType]) {
@@ -75,7 +104,10 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
         return NO;
     }
     
-    MOAspectsTarget *target = [self targetInStoreWithClass:rootResponderClass selector:selector methodType:methodType];
+    MOAspectsTarget *target = [self targetInStoreWithClass:rootResponderClass
+                                                  selector:selector
+                                                methodType:methodType
+                                                 hookRange:hookRange];
     [self addHookMethodWithTarget:target class:clazz aspectsPosition:aspectsPosition usingBlock:block ?: (id)^{
         MOAspectsErrorLog(@"%@[%@ %@] block parameter is nil",
                           methodType == MOAspectsTargetMethodTypeClass ? @"+" : @"-",
@@ -232,7 +264,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
                                                             targetObject:object];
     for (NSValue *value in target.beforeSelectors) {
         SEL selector = [value pointerValue];
-        if ([object class] == [target classForSelector:selector]) {
+        if ([self shouldInvokeTarget:target toObject:object selector:selector]) {
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
@@ -243,7 +275,7 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
     
     for (NSValue *value in target.afterSelectors) {
         SEL selector = [value pointerValue];
-        if ([object class] == [target classForSelector:selector]) {
+        if ([self shouldInvokeTarget:target toObject:object selector:selector]) {
             [aspectsInvocation setSelector:selector];
             [aspectsInvocation invokeWithTarget:object];
         }
@@ -253,11 +285,15 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 + (MOAspectsTarget *)targetInStoreWithClass:(Class)clazz
                                    selector:(SEL)selector
                                  methodType:(MOAspectsTargetMethodType)methodType
+                                  hookRange:(MOAspectsHookRange)hookRange
 {
     NSString *key = [MOAspectsStore keyWithClass:clazz selector:selector methodType:methodType];
     MOAspectsTarget *target = [[MOAspectsStore sharedStore] targetForKey:key];
     if (!target) {
-        target = [[MOAspectsTarget alloc] initWithClass:clazz mehodType:methodType methodSelector:selector];
+        target = [[MOAspectsTarget alloc] initWithClass:clazz
+                                              mehodType:methodType
+                                         methodSelector:selector
+                                              hookRange:hookRange];
         [[MOAspectsStore sharedStore] setTarget:target forKey:key];
     }
     return target;
@@ -266,6 +302,21 @@ NSString * const MOAspectsPrefix = @"__moa_aspects_";
 + (BOOL)isSwiftClass:(Class)clazz
 {
     return [[MOARuntime stringWithClass:clazz] componentsSeparatedByString:@"."].count > 1;
+}
+
++ (BOOL)shouldInvokeTarget:(MOAspectsTarget *)target
+                  toObject:(id)object
+                  selector:(SEL)selector
+{
+    if (MOAspectsEqualHookRanges(target.hookRange, MOAspectsHookRangeSingle)) {
+        return [object class] == [target classForSelector:selector];
+    } else if (MOAspectsEqualHookRanges(target.hookRange, MOAspectsHookRangeAll)) {
+        return YES;
+    } else {
+        NSAssert(NO, @"Not implemented custom hook range");
+    }
+    
+    return NO;
 }
 
 #pragma mark Both interface

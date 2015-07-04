@@ -44,8 +44,15 @@
                                                         selectorStr];
                                        NSLog(@"%@", log);
                                    }];
-        
     }
+    
+    [MOAspects hookInstanceMethodForClass:[UIViewController class]
+                                 selector:NSSelectorFromString(@"viewDidLoad")
+                          aspectsPosition:MOAspectsPositionAfter
+                                hookRange:MOAspectsHookRangeAll
+                               usingBlock:^(id object){
+                                   NSLog(@"View did loaded from %@", NSStringFromClass([object class]));
+                               }];
 }
 
 #pragma mark - Property

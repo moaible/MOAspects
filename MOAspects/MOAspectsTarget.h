@@ -3,10 +3,12 @@
 //  MOAspects
 //
 //  Created by Hiromi Motodera on 2015/03/15.
-//  Copyright (c) 2015年 MOAI. All rights reserved.
+//  Copyright (c) 2015 MOAI. All rights reserved
 //
 
 #import <Foundation/Foundation.h>
+
+#import "MOAspectsHookRange.h"
 
 typedef NS_ENUM(NSInteger, MOAspectsTargetMethodType)
 {
@@ -22,13 +24,16 @@ typedef NS_ENUM(NSInteger, MOAspectsTargetMethodType)
 
 @property (nonatomic, readonly) MOAspectsTargetMethodType methodType;
 
+@property (nonatomic, readonly) MOAspectsHookRange hookRange;
+
 @property (nonatomic) NSMutableArray *beforeSelectors; // NSValue array
 
 @property (nonatomic) NSMutableArray *afterSelectors; // NSValue array
 
 - (instancetype)initWithClass:(Class)clazz
                     mehodType:(MOAspectsTargetMethodType)methodType
-               methodSelector:(SEL)selector;
+               methodSelector:(SEL)selector
+                    hookRange:(MOAspectsHookRange)hookRange;
 
 - (void)addBeforeSelector:(SEL)selector forClass:(Class)clazz;
 

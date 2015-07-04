@@ -3,7 +3,7 @@
 //  MOAspects
 //
 //  Created by Hiromi Motodera on 2015/02/12.
-//  Copyright (c) 2015年 MOAI. All rights reserved.
+//  Copyright (c) 2015 MOAI. All rights reserved
 //
 
 #import "MOARuntime.h"

@@ -3,10 +3,12 @@
 //  MOAspects
 //
 //  Created by Hiromi Motodera on 2015/03/15.
-//  Copyright (c) 2015年 MOAI. All rights reserved.
+//  Copyright (c) 2015 MOAI. All rights reserved
 //
 
 #import <Foundation/Foundation.h>
+
+#import "MOAspectsHookRange.h"
 
 typedef NS_ENUM(NSInteger, MOAspectsPosition)
 {
@@ -21,9 +23,21 @@ typedef NS_ENUM(NSInteger, MOAspectsPosition)
                    aspectsPosition:(MOAspectsPosition)aspectsPosition
                         usingBlock:(id)block;
 
++ (BOOL)hookInstanceMethodForClass:(Class)clazz
+                          selector:(SEL)selector
+                   aspectsPosition:(MOAspectsPosition)aspectsPosition
+                         hookRange:(MOAspectsHookRange)hookRange
+                        usingBlock:(id)block;
+
 + (BOOL)hookClassMethodForClass:(Class)clazz
                        selector:(SEL)selector
                 aspectsPosition:(MOAspectsPosition)aspectsPosition
+                     usingBlock:(id)block;
+
++ (BOOL)hookClassMethodForClass:(Class)clazz
+                       selector:(SEL)selector
+                aspectsPosition:(MOAspectsPosition)aspectsPosition
+                      hookRange:(MOAspectsHookRange)hookRange
                      usingBlock:(id)block;
 
 @end
