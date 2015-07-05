@@ -17,6 +17,7 @@
 		FAC7A1301ACFAF0D00C2CC72 /* MOAspectsTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC7A12C1ACFAF0D00C2CC72 /* MOAspectsTarget.m */; };
 		FAC7A1341ACFAF3400C2CC72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7A1321ACFAF3400C2CC72 /* AppDelegate.swift */; };
 		FAC7A1351ACFAF3400C2CC72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7A1331ACFAF3400C2CC72 /* ViewController.swift */; };
+		FAFDB7191B2D473200D3EA8B /* MOAspectsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDB7181B2D473200D3EA8B /* MOAspectsTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		FAC7A1321ACFAF3400C2CC72 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC7A1331ACFAF3400C2CC72 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FAC7A1391ACFAFD600C2CC72 /* MOAspectsDemoSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MOAspectsDemoSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		FAFDB7181B2D473200D3EA8B /* MOAspectsTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOAspectsTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		FAC7A1171ACFADC600C2CC72 /* MOAspectsDemoSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				FAFDB7171B2D471200D3EA8B /* MOAspectsTest */,
 				FAC7A11A1ACFADC600C2CC72 /* MOAspectsDemoSwiftTests.swift */,
 				FAC7A1181ACFADC600C2CC72 /* Supporting Files */,
 			);
@@ -151,6 +154,14 @@
 				FAC7A1391ACFAFD600C2CC72 /* MOAspectsDemoSwift-Bridging-Header.h */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		FAFDB7171B2D471200D3EA8B /* MOAspectsTest */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDB7181B2D473200D3EA8B /* MOAspectsTestCase.swift */,
+			);
+			path = MOAspectsTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC7A11B1ACFADC600C2CC72 /* MOAspectsDemoSwiftTests.swift in Sources */,
+				FAFDB7191B2D473200D3EA8B /* MOAspectsTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
