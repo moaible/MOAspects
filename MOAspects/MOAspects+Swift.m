@@ -13,33 +13,37 @@
 + (BOOL)hookInstanceMethodForClass:(Class)clazz
                           selector:(SEL)selector
                           position:(MOAspectsPosition)position
+                             range:(MOAspectsHookRange)range
              usingNoParameterBlock:(MOAspectsNoParameterBlock)block
 {
-    return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:position usingBlock:(id)block];;
+    return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:position hookRange:range usingBlock:(id)block];
 }
 
 + (BOOL)hookInstanceMethodForClass:(Class)clazz
                           selector:(SEL)selector
                           position:(MOAspectsPosition)position
+                             range:(MOAspectsHookRange)range
               usingParameterBlock0:(MOAspectsParameterBlock0)block
 {
-    return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:position usingBlock:(id)block];
+    return [self hookInstanceMethodForClass:clazz selector:selector aspectsPosition:position hookRange:range usingBlock:(id)block];
 }
 
 + (BOOL)hookClassMethodForClass:(Class)clazz
                        selector:(SEL)selector
                        position:(MOAspectsPosition)position
+                          range:(MOAspectsHookRange)range
           usingNoParameterBlock:(MOAspectsNoParameterBlock)block
 {
-    return [self hookClassMethodForClass:clazz selector:selector aspectsPosition:position usingBlock:(id)block];
+    return [self hookClassMethodForClass:clazz selector:selector aspectsPosition:position hookRange:range usingBlock:(id)block];
 }
 
 + (BOOL)hookClassMethodForClass:(Class)clazz
                        selector:(SEL)selector
                        position:(MOAspectsPosition)position
+                          range:(MOAspectsHookRange)range
            usingParameterBlock0:(MOAspectsParameterBlock0)block
 {
-    return [self hookClassMethodForClass:clazz selector:selector aspectsPosition:position usingBlock:(id)block];
+    return [self hookClassMethodForClass:clazz selector:selector aspectsPosition:position hookRange:range usingBlock:(id)block];
 }
 
 @end

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Load
     
     override class func load() {
-        MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad", position:.Before) {
+        MOAspects.hookInstanceMethodForClass(ViewController.self, selector:"viewDidLoad", position:.Before, range:MOAspectsHookRangeSingle){
             (t:AnyObject!)->Void in
             NSLog("t is \(t)")
         }
